@@ -5,13 +5,12 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import Maii from "./Maii"
-import Owner from "./Owner";
-import Categori from "./Categori";
+
 import { Feather } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
-import Main_text from "./Main_text";
+
 import { HeaderTitle } from "react-navigation-stack";
+import { cos } from "react-native-reanimated";
 
 function LogoTitle() {
   return (
@@ -22,6 +21,11 @@ function LogoTitle() {
   );
 }
 const main = function ({ navigation }) {
+
+  const gogo = function () {
+    navigation.navigate('login');
+  }
+
   const [ref, setRef] = useState(null);
 
   // const listRef_2 = useRef(null);
@@ -177,68 +181,72 @@ const main = function ({ navigation }) {
                 marginLeft: 5,
                 backgroundColor: 'white'
               }}>
-                <View style={{
-                  width: Dimensions.get('window').width / 2.3,
-                  height: '62%',
-                  backgroundColor: '#F0F0F0',
-                  margin: 5
-                }}>
+                <TouchableOpacity onPress={() => navigation.navigate('fifth')}>
+
+
                   <View style={{
-                    width: '100%',
-                    height: '80%',
-                    backgroundColor: 'blue'
+                    width: Dimensions.get('window').width / 2.3,
+                    height: '62%',
+                    backgroundColor: '#F0F0F0',
+                    margin: 5
                   }}>
-                    <Image
-
-                      resizeMode="cover"
-                      style={{
-                        width: '100%',
-                        height: '100%'
-
-                      }}
-                      source={require('../assets/Image_2/20.png')}
-                    />
-
                     <View style={{
-                      width: 80,
-                      height: 25,
-                      backgroundColor: 'black',
-                      position: 'absolute',
-                      bottom: 0
+                      width: '100%',
+                      height: '80%',
+                      backgroundColor: 'blue'
                     }}>
+                      <Image
+
+                        resizeMode="cover"
+                        style={{
+                          width: '100%',
+                          height: '100%'
+
+                        }}
+                        source={require('../assets/Image_2/20.png')}
+                      />
+
+                      <View style={{
+                        width: 80,
+                        height: 25,
+                        backgroundColor: 'black',
+                        position: 'absolute',
+                        bottom: 0
+                      }}>
+                        <Text style={{
+                          fontFamily: 'Rn',
+                          color: 'white',
+                          fontsize: 13,
+                          marginLeft: 10
+                        }}>
+                          ₩18900
+                        </Text>
+
+                      </View>
                       <Text style={{
                         fontFamily: 'Rn',
-                        color: 'white',
-                        fontsize: 13,
+                        fontSize: 13,
                         marginLeft: 10
                       }}>
-                        ₩18900
+                        스페인 22 홈 저지
+                      </Text>
+                      <Text style={{
+                        //fontFamily: 'Rn',
+                        fontSize: 9,
+                        marginLeft: 10,
+                        color: '#808080'
+
+                      }}>
+                        남성 • Football
                       </Text>
 
                     </View>
-                    <Text style={{
-                      fontFamily: 'Rn',
-                      fontSize: 13,
-                      marginLeft: 10
-                    }}>
-                      스페인 22 홈 저지
-                    </Text>
-                    <Text style={{
-                      //fontFamily: 'Rn',
-                      fontSize: 9,
-                      marginLeft: 10,
-                      color: '#808080'
+                    <View>
 
-                    }}>
-                      남성 • Football
-                    </Text>
+                    </View>
 
                   </View>
-                  <View>
-
-                  </View>
-
-                </View>
+                </TouchableOpacity>
                 <View style={{
                   width: Dimensions.get('window').width / 2.3,
                   height: '60%',
@@ -427,7 +435,7 @@ const main = function ({ navigation }) {
   )
 
 }
-main.navigationOptions = () => {
+main.navigationOptions = ({ navigation }) => {
   return {
     headerLeft: (props) => <LogoTitle {...props} />,
     title: '',
@@ -441,9 +449,14 @@ main.navigationOptions = () => {
             margin: 10
           }}
           name="search" size={24} color="black" />
-        <Feather style={{
-          margin: 10
-        }} name="user" size={24} color="black" />
+        <TouchableOpacity onPress={() => { navigation.navigate('Login') }}>
+
+          <Feather style={{
+            margin: 10
+          }} name="user" nav={navigation} size={24} color="black" />
+        </TouchableOpacity>
+
+
       </View>
 
 

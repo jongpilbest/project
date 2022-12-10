@@ -1,123 +1,204 @@
 
 
 import React, { useState, useContext, useEffect, useRef } from "react"
-import { View, Image, ScrollView, TextInput, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
+import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
+//import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+
+import { ScrollView } from "react-native-gesture-handler";
+
+
 const Categori = function ({ navigation }) {
+
  return (
-
-  <View style={{
-   width: Dimensions.get('window').width,
-   height: Dimensions.get('window').height < 380 ? 50 : 60,
-   marginTop: Dimensions.get('window').height < 380 ? 10 : 20,
-   borderRadius: 10,
-   justifyContent: 'center',
-   flexDirection: 'row',
-   // backgroundColor: 'blue'
-
-  }}>
+  <ScrollView>
    <View style={{
-    //backgroundColor: 'white',
-    width: Dimensions.get('window').width * 0.9,
-    height: Dimensions.get('window').height < 380 ? 70 : 75,
-    marginTop: Dimensions.get('window').height < 380 ? 3 : 5,
-    borderRadius: 5,
+    backgroundColor: 'white',
 
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+
+
+    //ustifyContent: "space-between",
+    alignItems: 'center'
+    , justifyContent: 'center',
+    display: 'flex'
 
    }}>
+    <View style={{
+     backgroundColor: 'white',
+     flexDirection: "row",
+     width: Dimensions.get('window').width,
+     height: Dimensions.get('window').height,
+     backgroundColor: 'black'
+     ,
+     flexWrap: "wrap",
+    }}>
 
 
-    <ScrollView
-     showsHorizontalScrollIndicator={false}
-     horizontal={true}>
      <View style={{
-      width: 90,
-      height: 40,
-      backgroundColor: '#ECECEC',
-      marginRight: 10,
-      //marginLeft: 10,
-      justifyContent: 'center',
-      borderRadius: 5,
-      //borderColor: '#91A6C7',
-      //borderWidth: 1
-     }}>
-      <Text style={{
-       textAlign: 'center',
-       fontFamily: 'ExtraBold',
-       fontSize: 13
+      width: '50%',
+      height: Dimensions.get('window').height / 4,
+      backgroundColor: '#F0F0F0',
+      borderColor: 'white',
+      borderWidth: 2
 
-      }}>Originals</Text>
+     }}>
+      <TouchableOpacity onPress={() => navigation.navigate('Ca_in')}>
+       <View style={{
+        width: '100%',
+        height: '100%',
+        //backgroundColor: 'blue'
+       }}>
+        <Image
+
+         resizeMode="cover"
+         style={{
+          width: '100%',
+          height: '100%',
+
+          resizeMode: 'contain'
+         }}
+         source={require('../assets/Image_2/31.png')}
+        />
+
+        <View style={{
+         width: '80%',
+         height: 25,
+         backgroundColor: 'black',
+         position: 'absolute',
+         bottom: 10,
+         alignSelf: 'center',
+        }}>
+         <Text style={{
+          fontFamily: 'Rn',
+          color: 'white',
+          fontsize: 13,
+          textAlign: 'center'
+         }}>
+          오리지널스
+         </Text>
+
+        </View>
+
+
+       </View>
+
+       <View>
+
+       </View>
+      </TouchableOpacity>
+     </View>
+
+     <View style={{
+      width: '50%',
+      height: Dimensions.get('window').height / 4,
+      backgroundColor: '#F0F0F0',
+      borderColor: 'white',
+      borderWidth: 2
+     }}>
+      <View style={{
+       width: '100%',
+       height: '80%',
+       //backgroundColor: 'blue'
+      }}>
+       <Image
+
+        resizeMode="cover"
+        style={{
+         width: '100%',
+         height: '100%'
+
+        }}
+        source={require('../assets/Image_2/20.png')}
+       />
+
+       <View style={{
+        width: 80,
+        height: 25,
+        backgroundColor: 'black',
+        position: 'absolute',
+        bottom: 0
+       }}>
+        <Text style={{
+         fontFamily: 'Rn',
+         color: 'white',
+         fontsize: 13,
+         marginLeft: 10
+        }}>
+         ₩18900
+        </Text>
+
+       </View>
+
+
+      </View>
+      <View>
+
+      </View>
 
      </View>
      <View style={{
-      width: 90,
-      height: 40,
-      backgroundColor: '#ECECEC',
-      marginRight: 10,
-      marginLeft: 10,
-      justifyContent: 'center',
-      borderRadius: 5,
-
-      //orderColor: '#91A6C7',
-      //borderWidth: 1
-     }}>
-      <Text style={{
-       textAlign: 'center',
-       fontFamily: 'ExtraBold',
-       fontSize: 13
-
-      }}>Running</Text>
-
-     </View>
-     <View style={{
-      width: 90,
-      height: 40,
-      backgroundColor: '#ECECEC',
-      marginRight: 10,
-      marginLeft: 10,
-      justifyContent: 'center',
-      borderRadius: 5,
-
+      width: Dimensions.get('window').width / 2.12,
+      height: Dimensions.get('window').height / 4,
+      backgroundColor: '#F0F0F0',
 
      }}>
-      <Text style={{
-       textAlign: 'center',
-       fontFamily: 'ExtraBold',
-       fontSize: 13
+      <View style={{
+       width: '100%',
+       height: '80%',
+       //backgroundColor: 'blue'
+      }}>
+       <Image
 
-      }}>Trainning</Text>
+        resizeMode="cover"
+        style={{
+         width: '100%',
+         height: '100%'
+
+        }}
+        source={require('../assets/Image_2/20.png')}
+       />
+
+       <View style={{
+        width: 80,
+        height: 25,
+        backgroundColor: 'black',
+        position: 'absolute',
+        bottom: 0
+       }}>
+        <Text style={{
+         fontFamily: 'Rn',
+         color: 'white',
+         fontsize: 13,
+         marginLeft: 10
+        }}>
+         ₩18900
+        </Text>
+
+       </View>
+
+
+      </View>
+      <View>
+
+      </View>
 
      </View>
-     <View style={{
-      width: 90,
-      height: 40,
-      backgroundColor: 'white',
-      marginRight: 10,
-      marginLeft: 10,
-      justifyContent: 'center',
-      borderRadius: 5,
-      borderRadius: 20,
-      borderColor: '#91A6C7',
-      borderWidth: 1
-     }}>
-      <Text style={{
-       textAlign: 'center',
-       //fontFamily: 'ExtraBold',
-       fontSize: 13
-
-      }} >아웃도어</Text>
-
-     </View>
-    </ScrollView>
-   </View>
-  </View>
-
+    </View>
+   </View >
+  </ScrollView >
  )
 
 }
+Categori.navigationOptions = () => {
+ return {
+  title: <Text style={{
+   fontFamily: 'Rn',
+   textAlign: 'center'
+  }}> Categori </Text>,
 
+ };
+};
 export default Categori;

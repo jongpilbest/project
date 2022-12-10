@@ -5,14 +5,17 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import Maii from "./Maii"
-import Owner from "./Owner";
-import Categori from "./Categori";
-import Adver from "./Adver";
+import { Feather } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
-import Main_text from "./Main_text";
+function LogoTitle() {
+ return (
+  <Image
+   style={{ width: 40, height: 30, marginLeft: 10 }}
+   source={require('../assets/logo.png')}
+  />
+ );
+}
 
-import Custom from "./Custom";
 const good_js = function ({ navigation }) {
 
  return (
@@ -29,15 +32,6 @@ const good_js = function ({ navigation }) {
 
 
   }}>
-   <SafeAreaView >
-    <Maii></Maii>
-   </SafeAreaView>
-
-   <Owner></Owner>
-   <Adver></Adver>
-   <Categori></Categori>
-   <Main_text></Main_text>
-   <Custom navigation={navigation}></Custom>
 
 
   </View >
@@ -46,7 +40,7 @@ const good_js = function ({ navigation }) {
 }
 good_js.navigationOptions = () => {
  return {
-  header: () => false,
+  tabBarPosition: 'top'
  };
 };
 export default good_js;

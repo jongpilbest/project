@@ -5,14 +5,10 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import Maii from "./Maii"
-import Owner from "./Owner";
-import Categori from "./Categori";
-import Adver from "./Adver";
-import { ScrollView } from "react-native-gesture-handler";
-import Main_text from "./Main_text";
 
-import Custom from "./Custom";
+import { ScrollView } from "react-native-gesture-handler";
+
+
 const second = function ({ navigation }) {
 
  return (
@@ -29,16 +25,7 @@ const second = function ({ navigation }) {
 
 
   }}>
-   <SafeAreaView >
-    <Maii></Maii>
-   </SafeAreaView>
-
-   <Owner></Owner>
-   <Adver></Adver>
-   <Categori></Categori>
-   <Main_text></Main_text>
-   <Custom navigation={navigation}></Custom>
-
+  
 
   </View >
  )
