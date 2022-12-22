@@ -56,7 +56,7 @@ const Login = function ({ navigation, state }) {
        borderTopColor: 'transparent',
        borderRightColor: 'transparent',
        borderLeftColor: 'transparent',
-       borderWidth: 1
+       borderWidth: 0.9
       }}
       value={title}
       onChangeText={(text) => setTitle(text)}
@@ -81,7 +81,7 @@ const Login = function ({ navigation, state }) {
        borderTopColor: 'transparent',
        borderRightColor: 'transparent',
        borderLeftColor: 'transparent',
-       borderWidth: 1
+       borderWidth: 0.9
       }}
       value={title2}
       onChangeText={(text) => setTitle2(text)}
@@ -125,6 +125,8 @@ const Login = function ({ navigation, state }) {
 
 
 
+
+
     <View style={{
      width: '90%',
      backgroundColor: 'black',
@@ -133,34 +135,39 @@ const Login = function ({ navigation, state }) {
 
 
     }}>
-     <Text style={{
-      fontFamily: 'Rn',
-      color: 'white',
-      fontSize: 17,
-      textAlign: 'center'
-     }}>
-      로그인
-     </Text>
-
+     <TouchableOpacity onPress={() => navigation.navigate('My_page')}>
+      <Text style={{
+       fontFamily: 'Rn',
+       color: 'white',
+       fontSize: 17,
+       textAlign: 'center'
+      }}>
+       로그인
+      </Text>
+     </TouchableOpacity>
     </View>
+
     <View style={{
      width: '90%',
      backgroundColor: 'white',
      height: 50,
      justifyContent: 'center',
      borderColor: 'black',
-     borderWidth: 1
+     borderWidth: 0.9
      , marginTop: 20
 
     }}>
-     <Text style={{
-      fontFamily: 'Rn',
-      color: 'black',
-      fontSize: 17,
-      textAlign: 'center'
-     }}>
-      회원가입
-     </Text>
+     <TouchableOpacity onPress={() => navigation.navigate('New_')}>
+
+      <Text style={{
+       fontFamily: 'Rn',
+       color: 'black',
+       fontSize: 17,
+       textAlign: 'center'
+      }}>
+       회원가입
+      </Text>
+     </TouchableOpacity>
 
     </View>
    </View>
@@ -176,7 +183,7 @@ Login.navigationOptions = () => {
    fontFamily: 'Rn',
    textAlign: 'center'
   }}> Login </Text>,
- 
+
  };
 };
 export default Login;

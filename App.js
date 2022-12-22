@@ -13,8 +13,12 @@ import { createStackNavigator } from "react-navigation-stack";
 import { Foundation } from '@expo/vector-icons';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import second from './main/second';
+import New_ from './main/login/New_';
+import My_page from './main/My_page/My_page';
 import good_js from './main/good_js';
+import Like_List from './main/Like_List/Like_List';
 import Ca_in from './main/Ca_in';
+import Cart from './main/Cart/Cart';
 import Categori from './main/Categori';
 import Top_bo from './main/Top_bo';
 import fifth from './main/fifth';
@@ -40,6 +44,8 @@ const navigator =
         main: main,
         Login: Login,
         fifth: fifth,
+        My_page: My_page,
+        New_: New_
       },
         {
           navigationOptions: {
@@ -61,7 +67,8 @@ const navigator =
         Top_men: Top_men,
         Top_kid: Top_kid,
         Categori: Categori,
-        Ca_in: Ca_in
+        Ca_in: Ca_in,
+        fifth: fifth,
       }, {
         navigationOptions: {
           tabBarLabel: () => { return null },
@@ -75,7 +82,7 @@ const navigator =
       }),
       cart: createStackNavigator({
 
-        good_js: good_js,
+        Like_List: Like_List,
 
       }, {
         navigationOptions: {
@@ -100,7 +107,7 @@ const navigator =
 
       Mypage_main: createStackNavigator({
 
-        fifth: fifth,
+        Cart: Cart
 
       }, {
         navigationOptions: {

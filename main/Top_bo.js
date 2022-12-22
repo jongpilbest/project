@@ -216,61 +216,65 @@ const Top_bo = function ({ navigation }) {
           backgroundColor: '#EBEBEB',
           margin: 5
          }}>
-          <View style={{
-           width: '100%',
-           height: 170,
-           backgroundColor: '#EBEBEB'
-          }}>
-           <Image
-
-            resizeMode="cover"
-            style={{
-             width: '100%',
-             height: '70%'
-
-            }}
-            source={require('../assets/Image_2/16.png')}
-           />
+          <TouchableOpacity onPress={() => navigation.navigate('fifth')}>
 
            <View style={{
-            width: 80,
-            height: 25,
-            backgroundColor: 'black',
-            position: 'absolute',
-            bottom: 50
+            width: '100%',
+            height: 185,
+            backgroundColor: '#EBEBEB'
            }}>
+            <Image
+
+             resizeMode="cover"
+             style={{
+              width: '100%',
+              height: '70%'
+
+             }}
+             source={require('../assets/Image_2/16.png')}
+            />
+
+            <View style={{
+             width: 80,
+             height: 20,
+             backgroundColor: 'black',
+             position: 'absolute',
+             bottom: 55
+            }}>
+             <Text style={{
+              fontFamily: 'Rn',
+              color: 'white',
+              fontsize: 13,
+              marginLeft: 10
+             }}>
+              ₩18900
+             </Text>
+
+            </View>
             <Text style={{
              fontFamily: 'Rn',
-             color: 'white',
-             fontsize: 13,
-             marginLeft: 10
+             fontSize: 13,
+             marginLeft: 10,
+             marginTop: 10
             }}>
-             ₩18900
+             스페인 22 홈 저지
+            </Text>
+            <Text style={{
+             //fontFamily: 'Rn',
+             fontSize: 9,
+             marginLeft: 10,
+             color: '#808080'
+
+            }}>
+             남성 • Football
             </Text>
 
            </View>
-           <Text style={{
-            fontFamily: 'Rn',
-            fontSize: 13,
-            marginLeft: 10
-           }}>
-            스페인 22 홈 저지
-           </Text>
-           <Text style={{
-            //fontFamily: 'Rn',
-            fontSize: 9,
-            marginLeft: 10,
-            color: '#808080'
+           <View>
 
-           }}>
-            남성 • Football
-           </Text>
+           </View>
 
-          </View>
-          <View>
-
-          </View>
-
+          </TouchableOpacity>
          </View>
          <View style={{
           width: Dimensions.get('window').width / 2.3,
@@ -355,7 +359,7 @@ const Top_bo = function ({ navigation }) {
          }}>
           <View style={{
            width: '100%',
-           height: 170,
+           height: 185,
            backgroundColor: '#EBEBEB'
           }}>
            <Image
@@ -371,10 +375,10 @@ const Top_bo = function ({ navigation }) {
 
            <View style={{
             width: 80,
-            height: 25,
+            height: 20,
             backgroundColor: 'black',
             position: 'absolute',
-            bottom: 50
+            bottom: 55
            }}>
             <Text style={{
              fontFamily: 'Rn',
@@ -389,7 +393,8 @@ const Top_bo = function ({ navigation }) {
            <Text style={{
             fontFamily: 'Rn',
             fontSize: 13,
-            marginLeft: 10
+            marginLeft: 10,
+            marginTop: 10
            }}>
             스페인 22 홈 저지
            </Text>
@@ -493,7 +498,7 @@ const Top_bo = function ({ navigation }) {
          }}>
           <View style={{
            width: '100%',
-           height: 170,
+           height: 185,
            backgroundColor: '#EBEBEB'
           }}>
            <Image
@@ -509,10 +514,10 @@ const Top_bo = function ({ navigation }) {
 
            <View style={{
             width: 80,
-            height: 25,
+            height: 20,
             backgroundColor: 'black',
             position: 'absolute',
-            bottom: 50
+            bottom: 55
            }}>
             <Text style={{
              fontFamily: 'Rn',
@@ -527,7 +532,8 @@ const Top_bo = function ({ navigation }) {
            <Text style={{
             fontFamily: 'Rn',
             fontSize: 13,
-            marginLeft: 10
+            marginLeft: 10,
+            marginTop: 10
            }}>
             스페인 22 홈 저지
            </Text>
