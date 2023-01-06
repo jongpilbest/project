@@ -5,10 +5,10 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
+import axios from "axios";
 import { Feather } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
-
+import Main_com from "./Main_com";
 import { HeaderTitle } from "react-navigation-stack";
 import { cos } from "react-native-reanimated";
 
@@ -21,6 +21,48 @@ function LogoTitle() {
   );
 }
 const main = function ({ navigation }) {
+  const [football, setfootball] = useState([]);
+  const [winter, setwinter] = useState([]);
+
+  const getmain_football = function () {
+    axios.get('http://192.168.0.5:3000/fifa', {
+
+    })
+      //성공시 then 실행
+      .then(function (response) {
+
+        setfootball(response.data);
+
+      }).catch(function (error) {
+
+        console.log(error.response.data);
+      });
+
+  }
+
+  const getmain_winterl = function () {
+    axios.get('http://192.168.0.5:3000/winter', {
+
+    })
+      //성공시 then 실행
+      .then(function (response) {
+
+        setwinter(response.data);
+
+      }).catch(function (error) {
+
+        console.log(error.response.data);
+      });
+
+  }
+  useEffect(() => {
+
+
+    getmain_football();
+    getmain_winterl();
+
+
+  }, [])
 
   const gogo = function () {
     navigation.navigate('login');
@@ -31,14 +73,12 @@ const main = function ({ navigation }) {
   // const listRef_2 = useRef(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   var hee = Dimensions.get('window').height;
-  const [count, setcount] = useState(2);
-  console.log(count, '카운트세기')
+
   const autoScroll = function () {
     console.log(contentVerticalOffset, hee)
     if (contentVerticalOffset > 30 && contentVerticalOffset < 100) {
       ref.scrollTo({ x: 0, y: hee, animated: false })
-      //setcount(2);
-      console.log(count)
+
     }
     if (contentVerticalOffset < hee && contentVerticalOffset > hee / 2) {
       console.log('??')
@@ -174,104 +214,15 @@ const main = function ({ navigation }) {
 
               horizontal={true}>
 
-              <View style={{
-                width: Dimensions.get('window').width * 2,
-                height: '100%',
-                flexDirection: 'row',
-                marginLeft: 5,
-                backgroundColor: 'white'
-              }}>
-                <TouchableOpacity onPress={() => navigation.navigate('fifth')}>
+              {
+                football.map((el, index) => {
 
-
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '62%',
-                    backgroundColor: '#F0F0F0',
-                    margin: 5
-                  }}>
-                    <View style={{
-                      width: '100%',
-                      height: '80%',
-                      backgroundColor: 'blue'
-                    }}>
-                      <Image
-
-                        resizeMode="cover"
-                        style={{
-                          width: '100%',
-                          height: '100%'
-
-                        }}
-                        source={require('../assets/Image_2/20.png')}
-                      />
-
-                      <View style={{
-                        width: 80,
-                        height: 25,
-                        backgroundColor: 'black',
-                        position: 'absolute',
-                        bottom: 0
-                      }}>
-                        <Text style={{
-                          fontFamily: 'Rn',
-                          color: 'white',
-                          fontsize: 13,
-                          marginLeft: 10
-                        }}>
-                          ₩18900
-                        </Text>
-
-                      </View>
-                      <Text style={{
-                        fontFamily: 'Rn',
-                        fontSize: 13,
-                        marginLeft: 10
-                      }}>
-                        스페인 22 홈 저지
-                      </Text>
-                      <Text style={{
-                        //fontFamily: 'Rn',
-                        fontSize: 9,
-                        marginLeft: 10,
-                        color: '#808080'
-
-                      }}>
-                        남성 • Football
-                      </Text>
-
-                    </View>
-                    <View>
-
-                    </View>
-
-                  </View>
-                </TouchableOpacity>
-                <View style={{
-                  width: Dimensions.get('window').width / 2.3,
-                  height: '60%',
-                  backgroundColor: '#F0F0F0',
-                  margin: 5
-                }}>
-
-                </View>
-                <View style={{
-                  width: Dimensions.get('window').width / 3,
-                  height: '60%',
-                  backgroundColor: 'black'
-                }}>
-
-                </View>
-                <View style={{
-                  width: Dimensions.get('window').width / 3,
-                  height: '60%',
-                  backgroundColor: 'black'
-                }}>
-
-                </View>
-              </View>
-
-
+                  return <Main_com
+                    total={el}
+                    navigation={navigation}
+                    key={index}></Main_com>
+                })
+              }
             </ScrollView>
 
           </View>
@@ -383,44 +334,15 @@ const main = function ({ navigation }) {
 
               horizontal={true}>
 
-              <View style={{
-                width: Dimensions.get('window').width * 2,
-                height: '100%',
-                flexDirection: 'row',
-                marginLeft: 5,
-                backgroundColor: 'white'
-              }}>
-                <View style={{
-                  width: Dimensions.get('window').width / 2.3,
-                  height: '60%',
-                  backgroundColor: 'black',
-                  margin: 5
-                }}>
+              {
+                winter.map((el, index) => {
 
-                </View>
-                <View style={{
-                  width: Dimensions.get('window').width / 2.3,
-                  height: '60%',
-                  backgroundColor: 'black',
-                  margin: 5
-                }}>
-
-                </View>
-                <View style={{
-                  width: Dimensions.get('window').width / 3,
-                  height: '60%',
-                  backgroundColor: 'black'
-                }}>
-
-                </View>
-                <View style={{
-                  width: Dimensions.get('window').width / 3,
-                  height: '60%',
-                  backgroundColor: 'black'
-                }}>
-
-                </View>
-              </View>
+                  return <Main_com
+                    total={el}
+                    navigation={navigation}
+                    key={index}></Main_com>
+                })
+              }
 
 
             </ScrollView>

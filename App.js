@@ -22,7 +22,9 @@ import Cart from './main/Cart/Cart';
 import Categori from './main/Categori';
 import Top_bo from './main/Top_bo';
 import fifth from './main/fifth';
-import Top_kid from './main/Top_kid';
+import store from './redux/Store';
+import Top_kid from './main/Top_kid'
+import { Provider } from "react-redux";;
 import { Feather } from '@expo/vector-icons';
 import Top_men from './main/Top_men';
 import { Entypo } from '@expo/vector-icons';
@@ -169,7 +171,9 @@ export default () => {
 
 
   return (
-    <App></App>
+    <Provider store={store}>
+      <App></App>
+    </Provider>
   )
 
 }

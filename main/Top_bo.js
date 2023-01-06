@@ -7,7 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
-
+import axios from 'axios';
 
 function LogoTitle() {
  return (
@@ -600,11 +600,31 @@ Top_bo.navigationOptions = ({ navigation }) => {
    return <View style={{
     flexDirection: 'row'
    }}>
-    <Feather
-     style={{
-      margin: 10
-     }}
-     name="search" size={24} color="black" />
+    <TouchableOpacity>
+
+    </TouchableOpacity>
+
+    <TouchableOpacity onPress={() => {
+     axios.post('http://192.168.1.105:3000/add_product',
+      { data: 'data' },
+      { withCredentials: true })
+      //성공시 then 실행
+      .then(function (response) {
+
+       console.log(성공하셨습니다);
+
+      }).catch(function (error) {
+
+       console.log(error.response.data);
+      });
+    }}>
+     <Feather
+      style={{
+       margin: 10
+      }}
+      name="search" size={24} color="black" />
+    </TouchableOpacity>
+
     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
 
      <Feather style={{

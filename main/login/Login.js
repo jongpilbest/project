@@ -1,19 +1,19 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
-import { Entypo } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-
-import { Feather } from '@expo/vector-icons';
-import { ScrollView } from "react-native-gesture-handler";
-
-import { HeaderTitle } from "react-navigation-stack";
-import { cos } from "react-native-reanimated";
-
+import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux'
+import { tokenAction } from "../../redux/token";
 const Login = function ({ navigation, state }) {
  const [title, setTitle] = useState(false);
  const [title2, setTitle2] = useState(false);
- console.log(navigation, state)
+
+ const [error, sererror] = useState(0);
+ const dispatch = useDispatch();
+
+
+ //localStroage 써야될듯요;; 
+
  return (
   <View style={{
    backgroundColor: 'white',
@@ -59,7 +59,13 @@ const Login = function ({ navigation, state }) {
        borderWidth: 0.9
       }}
       value={title}
-      onChangeText={(text) => setTitle(text)}
+
+      onChangeText={(text) => {
+
+       sererror(0);
+
+       setTitle(text)
+      }}
       autoCorrect
      //onEndEditing={() => console.log("onEndEditing")}
      //onSubmitEditing={() => console.log("onSubmitEditing")}
@@ -83,8 +89,12 @@ const Login = function ({ navigation, state }) {
        borderLeftColor: 'transparent',
        borderWidth: 0.9
       }}
+
       value={title2}
-      onChangeText={(text) => setTitle2(text)}
+      onChangeText={(text) => {
+       sererror(0)
+       setTitle2(text)
+      }}
       autoCorrect
      //onEndEditing={() => console.log("onEndEditing")}
      //onSubmitEditing={() => console.log("onSubmitEditing")}
@@ -110,7 +120,19 @@ const Login = function ({ navigation, state }) {
        비밀번호 찾기
       </Text>
      </View>
+     <View>
+      {error != 0 &&
+       <Text style={{
+        fontFamily: 'Rn',
+        margin: 10,
+        fontSize: 15,
+        color: 'red'
+       }}>
+        {error}
+       </Text>
+      }
 
+     </View>
     </View>
 
 
@@ -135,7 +157,30 @@ const Login = function ({ navigation, state }) {
 
 
     }}>
-     <TouchableOpacity onPress={() => navigation.navigate('My_page')}>
+     <TouchableOpacity onPress={() => {
+      axios.post('http://192.168.0.5:3000/signin', {
+       "email": title,
+       "password": title2
+
+      }, { withCredentials: true })
+       //성공시 then 실행
+       .then(function (response) {
+
+
+        dispatch(tokenAction.settoken(response.data.token))
+        navigation.navigate('My_page', { user: response.data.user });
+       }).catch(function (error) {
+        //console.log(error)
+        sererror(error.response.data.error);
+
+       });
+
+
+      // navigation.navigate('My_page')}
+     }
+
+     }
+     >
       <Text style={{
        fontFamily: 'Rn',
        color: 'white',

@@ -10,7 +10,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 const My_page = function ({ navigation }) {
-
+ const user = navigation.getParam('user');
+ console.log(user, '????')
  return (
 
   <View style={{
@@ -45,10 +46,10 @@ const My_page = function ({ navigation }) {
       color: 'black',
       fontSize: 15,
       fontFamily: 'Rn',
-      marginBottom: 2
+      marginBottom: 2,
 
 
-     }}> 핫소스최고님</Text>
+     }}> {user.name}님`</Text>
      <EvilIcons name="pencil" style={{
       marginBottom: 5
      }} size={30} color="black" />
@@ -267,7 +268,7 @@ My_page.navigationOptions = () => {
   title: <Text style={{
    fontFamily: 'Rn',
    textAlign: 'center'
-  }}> My page </Text>,
+  }}> 마이 페이지 </Text>,
  };
 };
 export default My_page;

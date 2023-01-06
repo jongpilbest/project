@@ -3,23 +3,38 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, ScrollView, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
-
-
+import { useSelector, useDispatch } from 'react-redux'
 import { Feather } from '@expo/vector-icons';
 //import { ScrollView } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons';
+import { tokenAction } from '../redux/token'
+import Size_Com from "./Size_Com";
+import axios from "axios";
+
 
 const fifth = function ({ navigation }) {
+  const data = navigation.getParam('total');
+  //data에서 이름 , 카테고리 , 가격 , 사이즈  보내면됨
+  const token = useSelector((state) => state.token.token);
+  console.log('여기 토큰 확인좀', token);
   const xx = Dimensions.get('window').width;
   const [checkfirst, setfirst] = useState(5);
   const [checksecond, setsecond] = useState(0);
   const [count, setcount] = useState(0);
+  const [size, setsize] = useState(0);
 
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const autoScroll = function () {
     //console.log(contentVerticalOffset, xx * 0.8, xx * 0.8 * 0.2)
     setcount(contentVerticalOffset / 4.5)
   }
+  const fifth_desig = function (data) {
+
+
+    setsize(data);
+
+  }
+
 
   //console.log(contentVerticalOffset, Dimensions.get('window').height)
   return (
@@ -98,7 +113,7 @@ const fifth = function ({ navigation }) {
                   height: '100%'
 
                 }}
-                source={require('../assets/Image/10.png')}
+                source={{ uri: data.product_image[0] }}
               />
 
             </View>
@@ -116,7 +131,7 @@ const fifth = function ({ navigation }) {
                   height: '100%'
 
                 }}
-                source={require('../assets/Image/11.png')}
+                source={{ uri: data.product_image[1] }}
               />
 
             </View>
@@ -134,7 +149,7 @@ const fifth = function ({ navigation }) {
                   height: '100%'
 
                 }}
-                source={require('../assets/Image/12.png')}
+                source={{ uri: data.product_image[2] }}
               />
 
             </View>
@@ -150,7 +165,7 @@ const fifth = function ({ navigation }) {
                   width: Dimensions.get('window').width,
                   height: '100%'
                 }}
-                source={require('../assets/Image/15.png')}
+                source={{ uri: data.product_image[3] }}
               />
 
             </View>
@@ -186,7 +201,7 @@ const fifth = function ({ navigation }) {
               marginLeft: 10,
               marginTop: 10
             }}>
-              NMD V3
+              {data.product_name}
             </Text>
             <Text style={{
               fontFamily: 'Rn',
@@ -194,14 +209,14 @@ const fifth = function ({ navigation }) {
               marginLeft: 10,
               color: '#808080'
             }}>
-              Women • Originals
+              {data.sebucategori.toString().replace(',', '*')}
             </Text>
             <Text style={{
               fontFamily: 'Rn',
               fontSize: 20,
               marginLeft: 10
             }}>
-              189,000원
+              {`₩ ${data.price}원`}
             </Text>
           </View>
           <View style={{
@@ -229,86 +244,15 @@ const fifth = function ({ navigation }) {
                 marginLeft: 10
               }}
               horizontal={true}>
+              {
+                data.size.map((el, index) => {
+                  return <Size_Com
+                    size={size}
+                    goto_size={(data) => fifth_desig(data)} key={index} data={el}>
+                  </Size_Com>
+                })
 
-              <View style={{
-                width: 70,
-                height: 30,
-                backgroundColor: 'white',
-                display: 'flex',
-                borderWidth: 1,
-                justifyContent: 'center',
-                margin: 10
-
-              }}>
-                <Text style={{
-                  color: 'black',
-                  fontFamily: 'Rn',
-                  fontSize: 15,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  //backgroundColor: 'blue'
-                }}> 230</Text>
-
-              </View>
-              <View style={{
-                width: 70,
-                height: 30,
-                backgroundColor: 'white',
-                display: 'flex',
-                borderWidth: 1,
-                justifyContent: 'center',
-                margin: 10
-              }}>
-                <Text style={{
-                  color: 'black',
-                  fontFamily: 'Rn',
-                  fontSize: 15,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  //backgroundColor: 'blue'
-                }}> 230</Text>
-
-              </View>
-              <View style={{
-                width: 70,
-                height: 30,
-                backgroundColor: 'white',
-                display: 'flex',
-                borderWidth: 1,
-                justifyContent: 'center',
-                margin: 10
-
-              }}>
-                <Text style={{
-                  color: 'black',
-                  fontFamily: 'Rn',
-                  fontSize: 15,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  //backgroundColor: 'blue'
-                }}> 230</Text>
-
-              </View>
-              <View style={{
-                width: 70,
-                height: 30,
-                backgroundColor: 'white',
-                display: 'flex',
-                borderWidth: 1,
-                justifyContent: 'center',
-                margin: 10
-
-              }}>
-                <Text style={{
-                  color: 'black',
-                  fontFamily: 'Rn',
-                  fontSize: 15,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  //backgroundColor: 'blue'
-                }}> 230</Text>
-
-              </View>
+              }
             </ScrollView>
           </View>
           <View style={{
@@ -409,16 +353,38 @@ const fifth = function ({ navigation }) {
               borderWidth: 1,
               marginTop: 10,
             }}>
-              <Text style={{
-                color: 'black',
-                fontSize: 17,
-                fontFamily: 'Rn',
+              <TouchableOpacity onPress={() => {
+                axios.post('http://192.168.0.5:3000/cart', {
+                  "_id": data._id,
+                  "size": size
+                },
+                  {
+                    headers: {
+                      'Authorization': `Bearer ${token}`
+                    }
+                  }
 
-                textAlign: 'center'
+                )
+                  //성공시 then 실행
+                  .then(function (response) {
+
+                  }).catch(function (error) {
+
+                    console.log(error.response.data);
+                  });
               }}>
-                장바구니
-              </Text>
 
+
+                <Text style={{
+                  color: 'black',
+                  fontSize: 17,
+                  fontFamily: 'Rn',
+
+                  textAlign: 'center'
+                }}>
+                  장바구니
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -435,30 +401,7 @@ fifth.navigationOptions = ({ navigation }) => {
   return {
 
     title: '',
-    headerRight: () => {
 
-      return <View style={{
-        flexDirection: 'row'
-      }}>
-        <Feather
-          style={{
-            margin: 10
-          }}
-          name="search" size={24} color="black" />
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-
-          <Feather style={{
-            margin: 10
-          }} name="shopping-cart" size={24} color="black" />
-        </TouchableOpacity>
-
-
-      </View>
-
-
-
-
-    }
 
 
   };
