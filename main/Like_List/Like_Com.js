@@ -3,12 +3,12 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
-
-
+import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 const Like_Com = function ({ navigation, data }) {
 
- //사용자의 카트에서
+
 
 
  return (
@@ -36,7 +36,7 @@ const Like_Com = function ({ navigation, data }) {
       height: '100%'
 
      }}
-     source={require('./28.png')}
+     source={{ uri: data.productId.product_image[0] }}
     />
    </View>
    <View style={{

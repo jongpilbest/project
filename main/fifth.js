@@ -13,15 +13,15 @@ import axios from "axios";
 
 
 const fifth = function ({ navigation }) {
+  const dispatch = useDispatch();
   const data = navigation.getParam('total');
   //data에서 이름 , 카테고리 , 가격 , 사이즈  보내면됨
   const token = useSelector((state) => state.token.token);
-  console.log('여기 토큰 확인좀', token);
-  const xx = Dimensions.get('window').width;
   const [checkfirst, setfirst] = useState(5);
   const [checksecond, setsecond] = useState(0);
   const [count, setcount] = useState(0);
   const [size, setsize] = useState(0);
+  const [good, setgood] = useState([]);
 
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const autoScroll = function () {
@@ -354,7 +354,7 @@ const fifth = function ({ navigation }) {
               marginTop: 10,
             }}>
               <TouchableOpacity onPress={() => {
-                axios.post('http://192.168.0.5:3000/cart', {
+                axios.post('http://192.168.0.19:3000/cart', {
                   "_id": data._id,
                   "size": size
                 },
@@ -367,10 +367,29 @@ const fifth = function ({ navigation }) {
                 )
                   //성공시 then 실행
                   .then(function (response) {
+                    var change = [...response.data.item];
+                    console.log(change)
+                    var aa = [];
+                    change.map((el, index) => {
+                      el.size.map((ev, index) => {
+                        var new_item = {
+                          productId: el,
+                          size: {
+                            size: ev.size,
+                            quantity: ev.quantity
+                          }
 
+                        }
+                        aa.push(new_item)
+                      })
+                    })
+                    console.log(aa);
+                    //setgood(aa);
+                    dispatch(tokenAction.setcart(aa))
+                    // console.log('??', response.data)
                   }).catch(function (error) {
 
-                    console.log(error.response.data);
+
                   });
               }}>
 

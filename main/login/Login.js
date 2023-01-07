@@ -158,7 +158,7 @@ const Login = function ({ navigation, state }) {
 
     }}>
      <TouchableOpacity onPress={() => {
-      axios.post('http://192.168.0.5:3000/signin', {
+      axios.post('http://192.168.0.19:3000/signin', {
        "email": title,
        "password": title2
 
@@ -166,7 +166,7 @@ const Login = function ({ navigation, state }) {
        //성공시 then 실행
        .then(function (response) {
 
-
+        console.log(response.data.token)
         dispatch(tokenAction.settoken(response.data.token))
         navigation.navigate('My_page', { user: response.data.user });
        }).catch(function (error) {
@@ -227,7 +227,7 @@ Login.navigationOptions = () => {
   title: <Text style={{
    fontFamily: 'Rn',
    textAlign: 'center'
-  }}> Login </Text>,
+  }}>  </Text>,
 
  };
 };

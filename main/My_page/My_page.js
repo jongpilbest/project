@@ -267,8 +267,9 @@ My_page.navigationOptions = () => {
  return {
   title: <Text style={{
    fontFamily: 'Rn',
-   textAlign: 'center'
-  }}> 마이 페이지 </Text>,
+   textAlign: 'center',
+   fontSize: 13
+  }}>  </Text>,
  };
 };
 export default My_page;

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialstate = {
  token: '',
+ cart: [],
 
 }
 const tokenslice = createSlice({
@@ -11,6 +12,9 @@ const tokenslice = createSlice({
  reducers: {
   settoken: (state, action) => {
    state.token = action.payload
+  },
+  setcart: (state, action) => {
+   state.cart = action.payload;
   },
 
  }
