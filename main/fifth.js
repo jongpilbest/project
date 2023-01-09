@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, ScrollView, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
 import { useSelector, useDispatch } from 'react-redux'
-import { Feather } from '@expo/vector-icons';
+
 //import { ScrollView } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons';
 import { tokenAction } from '../redux/token'
@@ -25,6 +25,8 @@ const fifth = function ({ navigation }) {
 
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const autoScroll = function () {
+
+
     //console.log(contentVerticalOffset, xx * 0.8, xx * 0.8 * 0.2)
     setcount(contentVerticalOffset / 4.5)
   }
@@ -46,6 +48,7 @@ const fifth = function ({ navigation }) {
 
 
     }}>
+
       <View style={{
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 2.5,
@@ -354,7 +357,7 @@ const fifth = function ({ navigation }) {
               marginTop: 10,
             }}>
               <TouchableOpacity onPress={() => {
-                axios.post('http://192.168.0.19:3000/cart', {
+                axios.post('http://192.168.1.102:3000/cart', {
                   "_id": data._id,
                   "size": size
                 },
@@ -369,6 +372,7 @@ const fifth = function ({ navigation }) {
                   .then(function (response) {
                     var change = [...response.data.item];
                     console.log(change)
+
                     var aa = [];
                     change.map((el, index) => {
                       el.size.map((ev, index) => {
@@ -385,8 +389,9 @@ const fifth = function ({ navigation }) {
                     })
                     console.log(aa);
                     //setgood(aa);
-                    dispatch(tokenAction.setcart(aa))
+                    dispatch(tokenAction.setuser(aa))
                     // console.log('??', response.data)
+
                   }).catch(function (error) {
 
 
@@ -413,6 +418,7 @@ const fifth = function ({ navigation }) {
 
 
     </View >
+
   )
 
 }

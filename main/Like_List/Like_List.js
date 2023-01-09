@@ -7,22 +7,21 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from '@expo/vector-icons';
 import Lii_Com from "./Lii_Com";
 import { useSelector, useDispatch } from 'react-redux'
-import axios from "axios";
 
-import Like_Com from "./Like_Com";
-import Like_List_api from "./Like_List_api";
+import { tokenAction } from "../../redux/token";
 const Like_List = function ({ navigation }) {
   const token = useSelector((state) => state.token.token);
   const cart = useSelector((state) => state.token.cart);
-
+  const dispatch = useDispatch();
   const [like, setlike] = useState([]);
+  const go_del = function (data, size) {
+    dispatch(tokenAction.deleteuser({
+      id: data,
+      size: size
 
-  console.log('접근', cart);
-
-  console.log(cart, '카트뭐요?')
+    }))
+  }
   useEffect(() => {
-
-    console.log(cart, '변경되는가?');
     setlike(cart);
   }), [cart];
 
@@ -118,7 +117,9 @@ const Like_List = function ({ navigation }) {
               {
 
                 like.map((el, inex) => {
-                  return <Lii_Com key={inex} data={el}></Lii_Com>
+                  return <Lii_Com key={inex}
+                    gogo_delte={(data, size) => go_del(data, size)}
+                    data={el}></Lii_Com>
                 })
               }
             </View>

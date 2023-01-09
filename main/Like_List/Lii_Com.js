@@ -5,8 +5,9 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Lii_Com = function ({ data }) {
+const Lii_Com = function ({ data, gogo_delte }) {
 
  console.log(data);
 
@@ -46,11 +47,16 @@ const Lii_Com = function ({ data }) {
      //backgroundColor: 'pink',
      flexDirection: 'column'
     }}>
-     <Feather style={{
-      position: 'absolute',
-      bottom: 5,
-      right: 10
-     }} name="x" size={20} color="black" />
+     <TouchableOpacity onPress={() => {
+      gogo_delte(data.productId.productId._id, data.size.size);
+     }}>
+      <Feather style={{
+       position: 'absolute',
+       bottom: 15,
+       right: 10
+      }} name="x" size={20} color="black" />
+     </TouchableOpacity>
+
      <Text style={{
       fontFamily: 'Rn',
       fontSize: 14,

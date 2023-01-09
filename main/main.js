@@ -3,15 +3,15 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
-import { Entypo } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+
 import axios from "axios";
 import { Feather } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
 import Main_com from "./Main_com";
 import { HeaderTitle } from "react-navigation-stack";
-import { cos } from "react-native-reanimated";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector, useDispatch } from 'react-redux';
+import { tokenAction } from "../redux/token";
 function LogoTitle() {
   return (
     <Image
@@ -20,13 +20,18 @@ function LogoTitle() {
     />
   );
 }
+
+
+
 const main = function ({ navigation }) {
+  const dispatch = useDispatch();
   const [football, setfootball] = useState([]);
   const [winter, setwinter] = useState([]);
-
+  useEffect(() => {
+    dispatch(tokenAction.settoken(''));
+  }, [])
   const getmain_football = function () {
-    axios.get('http://192.168.0.19:3000/fifa', {
-
+    axios.get('http://192.168.1.102:3000/fifa', {
     })
       //성공시 then 실행
       .then(function (response) {
@@ -41,7 +46,7 @@ const main = function ({ navigation }) {
   }
 
   const getmain_winterl = function () {
-    axios.get('http://192.168.0.19:3000/winter', {
+    axios.get('http://192.168.1.102:3000/winter', {
 
     })
       //성공시 then 실행
@@ -357,7 +362,9 @@ const main = function ({ navigation }) {
   )
 
 }
+
 main.navigationOptions = ({ navigation }) => {
+
   return {
     headerLeft: (props) => <LogoTitle {...props} />,
     title: '',
@@ -371,7 +378,10 @@ main.navigationOptions = ({ navigation }) => {
             margin: 10
           }}
           name="search" size={24} color="black" />
-        <TouchableOpacity onPress={() => { navigation.navigate('Login') }}>
+        <TouchableOpacity onPress={() => {
+
+          navigation.navigate('Login')
+        }}>
 
           <Feather style={{
             margin: 10

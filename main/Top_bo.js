@@ -605,7 +605,7 @@ Top_bo.navigationOptions = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {
-          axios.post('http://192.168.0.195:3000/add_product',
+          axios.post('http://192.168.1.1025:3000/add_product',
             { data: 'data' },
             { withCredentials: true })
             //성공시 then 실행

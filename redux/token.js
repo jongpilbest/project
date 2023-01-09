@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialstate = {
  token: '',
  cart: [],
+ name: '',
+
 
 }
 const tokenslice = createSlice({
@@ -13,9 +15,37 @@ const tokenslice = createSlice({
   settoken: (state, action) => {
    state.token = action.payload
   },
-  setcart: (state, action) => {
+  setuser: (state, action) => {
+
    state.cart = action.payload;
+   //state.name = action.payload.name;
+
   },
+  deleteuser: (state, action) => {
+   console.log(action.payload.id, action.payload.size);
+   const findIndexArray = state.cart.reduce((arr, item, index) => {
+    // 배열의 요소가 특정 조건을 만족하면 누적 값(arr)에 인덱스를 추가합니다.
+    if (item.productId.productId._id == action.payload.id) {
+     arr.push(index);
+    }
+    return arr;
+   }, []);
+   console.log(findIndexArray)
+   var find_index = 0;
+
+   findIndexArray.map((el, index) => {
+    if (state.cart[el].size.size == action.payload.size) {
+     find_index = el;
+     return;
+    }
+   })
+
+   state.cart = state.cart.filter((el, index) => {
+    return index != find_index
+   })
+
+
+  }
 
  }
 
