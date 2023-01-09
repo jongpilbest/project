@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const Lii_Com = function ({ data, gogo_delte }) {
 
  console.log(data);
+ console.log('01/09')
 
  return (
   <View>
@@ -48,7 +49,10 @@ const Lii_Com = function ({ data, gogo_delte }) {
      flexDirection: 'column'
     }}>
      <TouchableOpacity onPress={() => {
-      gogo_delte(data.productId.productId._id, data.size.size);
+
+      //->여기서 부터 axios 쿼리 불러와서 지우기..^^:;
+
+      // gogo_delte(data.productId.productId._id, data.size.size);
      }}>
       <Feather style={{
        position: 'absolute',
