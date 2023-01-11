@@ -4,14 +4,17 @@ import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+
 import { EvilIcons } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux'
 import { AntDesign } from '@expo/vector-icons';
 const My_page = function ({ navigation }) {
- const user = navigation.getParam('user');
- console.log(user, '????')
+ //const user = navigation.getParam('user');
+ const name = useSelector((state) => state.token.name);
+
+
+ console.log(name, '????')
  return (
 
   <View style={{
@@ -49,7 +52,7 @@ const My_page = function ({ navigation }) {
       marginBottom: 2,
 
 
-     }}> {user.name}님`</Text>
+     }}> {name}님</Text>
      <EvilIcons name="pencil" style={{
       marginBottom: 5
      }} size={30} color="black" />
@@ -140,10 +143,12 @@ const My_page = function ({ navigation }) {
      display: 'flex',
      alignItems: 'flex-end',
      justifyContent: 'center',
-     borderWidth: 1,
+     borderWidth: 0.6,
      borderTopColor: 'transparent',
-     borderRightColor: 'transparent',
-     borderColor: '#9C9C9C'
+     borderRightColor: 'white',
+
+     borderLeftColor: 'white',
+
     }}>
      <View style={{
       width: 70,

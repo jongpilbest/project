@@ -45,8 +45,10 @@ const tokenslice = createSlice({
    })
 
 
+  },
+  setname: (state, action) => {
+   state.name = action.payload
   }
-
  }
 
 })

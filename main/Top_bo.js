@@ -7,6 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
+import Top_Com from "./Top_Com";
 import axios from 'axios';
 
 function LogoTitle() {
@@ -19,6 +20,77 @@ function LogoTitle() {
 }
 
 const Top_bo = function ({ navigation }) {
+  const [shoes, setshoes] = useState([]);
+  const [apply, setapply] = useState([]);
+  const [sup, setsup] = useState([]);
+  const goto_shose = function () {
+
+
+    axios.get('http://192.168.1.104:3000/woman_shoes', {
+
+    })
+      //성공시 then 실행
+      .then(function (response) {
+
+        setshoes(response.data.data);
+
+      }).catch(function (error) {
+
+        console.log(error.response.data);
+      });
+
+
+  }
+
+  const goto_suppl = function () {
+
+
+    axios.get('http://192.168.1.104:3000/woman_apparel', {
+
+    })
+      //성공시 then 실행
+      .then(function (response) {
+
+        setapply(response.data.data);
+
+      }).catch(function (error) {
+
+        console.log(error.response.data);
+      });
+
+
+  }
+
+  const goto_apply = function () {
+
+
+    axios.get('http://192.168.1.104:3000/woman_sup', {
+
+    })
+      //성공시 then 실행
+      .then(function (response) {
+
+        setsup(response.data.data);
+
+      }).catch(function (error) {
+
+        console.log(error.response.data);
+      });
+
+
+  }
+
+  useEffect(() => {
+
+    goto_shose();
+    goto_suppl();
+    goto_apply();
+
+
+  }, [])
+
+
+
 
   return (
     <ScrollView>
@@ -130,7 +202,27 @@ const Top_bo = function ({ navigation }) {
                 , margin: 10,
                 justifyContent: 'space-between'
               }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Categori')}>
+                <TouchableOpacity onPress={() => {
+
+                  axios.get('http://192.168.1.104:3000/woman_shoe_cegori',
+
+                    { withCredentials: true })
+                    //성공시 then 실행
+                    .then(function (response) {
+                      console.log(response.data);
+                      navigation.navigate('Categori', { data: response.data.data })
+
+
+                    }).catch(function (error) {
+
+                      console.log(error.response.data);
+                    });
+
+
+
+                }
+
+                }>
 
 
                   <Text
@@ -210,94 +302,11 @@ const Top_bo = function ({ navigation }) {
                   marginTop: 5,
                   backgroundColor: 'white'
                 }}>
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '30%',
-                    backgroundColor: '#EBEBEB',
-                    margin: 5
-                  }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('fifth')}>
-
-                      <View style={{
-                        width: '100%',
-                        height: 185,
-                        backgroundColor: '#EBEBEB'
-                      }}>
-                        <Image
-
-                          resizeMode="cover"
-                          style={{
-                            width: '100%',
-                            height: '70%'
-
-                          }}
-                          source={require('../assets/Image_2/16.png')}
-                        />
-
-                        <View style={{
-                          width: 80,
-                          height: 20,
-                          backgroundColor: 'black',
-                          position: 'absolute',
-                          bottom: 55
-                        }}>
-                          <Text style={{
-                            fontFamily: 'Rn',
-                            color: 'white',
-                            fontsize: 13,
-                            marginLeft: 10
-                          }}>
-                            ₩18900
-                          </Text>
-
-                        </View>
-                        <Text style={{
-                          fontFamily: 'Rn',
-                          fontSize: 13,
-                          marginLeft: 10,
-                          marginTop: 10
-                        }}>
-                          스페인 22 홈 저지
-                        </Text>
-                        <Text style={{
-                          //fontFamily: 'Rn',
-                          fontSize: 9,
-                          marginLeft: 10,
-                          color: '#808080'
-
-                        }}>
-                          남성 • Football
-                        </Text>
-
-                      </View>
-                      <View>
-
-                      </View>
-
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '30%',
-                    backgroundColor: '#F0F0F0',
-                    margin: 5
-                  }}>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 3,
-                    height: '30%',
-                    backgroundColor: 'black'
-                  }}>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 3,
-                    height: '30%',
-                    backgroundColor: 'black'
-                  }}>
-
-                  </View>
+                  {
+                    shoes.map((el, index) => {
+                      return <Top_Com data={el} key={index}></Top_Com>
+                    })
+                  }
                 </View>
 
 
@@ -351,91 +360,12 @@ const Top_bo = function ({ navigation }) {
                   marginTop: 5,
                   backgroundColor: 'white'
                 }}>
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '30%',
-                    backgroundColor: '#EBEBEB',
-                    margin: 5
-                  }}>
-                    <View style={{
-                      width: '100%',
-                      height: 185,
-                      backgroundColor: '#EBEBEB'
-                    }}>
-                      <Image
 
-                        resizeMode="cover"
-                        style={{
-                          width: '100%',
-                          height: '70%'
-
-                        }}
-                        source={require('../assets/Image_2/26.png')}
-                      />
-
-                      <View style={{
-                        width: 80,
-                        height: 20,
-                        backgroundColor: 'black',
-                        position: 'absolute',
-                        bottom: 55
-                      }}>
-                        <Text style={{
-                          fontFamily: 'Rn',
-                          color: 'white',
-                          fontsize: 13,
-                          marginLeft: 10
-                        }}>
-                          ₩18900
-                        </Text>
-
-                      </View>
-                      <Text style={{
-                        fontFamily: 'Rn',
-                        fontSize: 13,
-                        marginLeft: 10,
-                        marginTop: 10
-                      }}>
-                        스페인 22 홈 저지
-                      </Text>
-                      <Text style={{
-                        //fontFamily: 'Rn',
-                        fontSize: 9,
-                        marginLeft: 10,
-                        color: '#808080'
-
-                      }}>
-                        남성 • Football
-                      </Text>
-
-                    </View>
-                    <View>
-
-                    </View>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '30%',
-                    backgroundColor: '#F0F0F0',
-                    margin: 5
-                  }}>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 3,
-                    height: '30%',
-                    backgroundColor: 'black'
-                  }}>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 3,
-                    height: '30%',
-                    backgroundColor: 'black'
-                  }}>
-
-                  </View>
+                  {
+                    apply.map((el, index) => {
+                      return <Top_Com data={el} key={index}></Top_Com>
+                    })
+                  }
                 </View>
 
 
@@ -490,91 +420,12 @@ const Top_bo = function ({ navigation }) {
                   marginTop: 5,
                   backgroundColor: 'white'
                 }}>
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '30%',
-                    backgroundColor: '#EBEBEB',
-                    margin: 5
-                  }}>
-                    <View style={{
-                      width: '100%',
-                      height: 185,
-                      backgroundColor: '#EBEBEB'
-                    }}>
-                      <Image
+                  {
+                    sup.map((el, index) => {
+                      return <Top_Com data={el} key={index}></Top_Com>
+                    })
+                  }
 
-                        resizeMode="cover"
-                        style={{
-                          width: '100%',
-                          height: '70%'
-
-                        }}
-                        source={require('../assets/Image_2/29.png')}
-                      />
-
-                      <View style={{
-                        width: 80,
-                        height: 20,
-                        backgroundColor: 'black',
-                        position: 'absolute',
-                        bottom: 55
-                      }}>
-                        <Text style={{
-                          fontFamily: 'Rn',
-                          color: 'white',
-                          fontsize: 13,
-                          marginLeft: 10
-                        }}>
-                          ₩18900
-                        </Text>
-
-                      </View>
-                      <Text style={{
-                        fontFamily: 'Rn',
-                        fontSize: 13,
-                        marginLeft: 10,
-                        marginTop: 10
-                      }}>
-                        스페인 22 홈 저지
-                      </Text>
-                      <Text style={{
-                        //fontFamily: 'Rn',
-                        fontSize: 9,
-                        marginLeft: 10,
-                        color: '#808080'
-
-                      }}>
-                        남성 • Football
-                      </Text>
-
-                    </View>
-                    <View>
-
-                    </View>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 2.3,
-                    height: '30%',
-                    backgroundColor: '#F0F0F0',
-                    margin: 5
-                  }}>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 3,
-                    height: '30%',
-                    backgroundColor: 'black'
-                  }}>
-
-                  </View>
-                  <View style={{
-                    width: Dimensions.get('window').width / 3,
-                    height: '30%',
-                    backgroundColor: 'black'
-                  }}>
-
-                  </View>
                 </View>
 
 
@@ -605,8 +456,8 @@ Top_bo.navigationOptions = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {
-          axios.post('http://192.168.1.1025:3000/add_product',
-            { data: 'data' },
+          axios.get('http://192.168.1.104:3000/add_product',
+
             { withCredentials: true })
             //성공시 then 실행
             .then(function (response) {

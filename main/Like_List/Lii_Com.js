@@ -46,20 +46,11 @@ const Lii_Com = function ({ data, gogo_delte }) {
      width: '60%',
      height: '100%',
      //backgroundColor: 'pink',
-     flexDirection: 'column'
+     flexDirection: 'column',
+     position: 'relative'
     }}>
-     <TouchableOpacity onPress={() => {
 
-      //->여기서 부터 axios 쿼리 불러와서 지우기..^^:;
 
-      // gogo_delte(data.productId.productId._id, data.size.size);
-     }}>
-      <Feather style={{
-       position: 'absolute',
-       bottom: 15,
-       right: 10
-      }} name="x" size={20} color="black" />
-     </TouchableOpacity>
 
      <Text style={{
       fontFamily: 'Rn',
@@ -104,7 +95,9 @@ const Lii_Com = function ({ data, gogo_delte }) {
        }
       }>
        <View>
-        <Text>
+        <Text style={{
+         textAlign: 'right'
+        }}>
          {data.size.size}
         </Text>
        </View>
@@ -148,6 +141,7 @@ const Lii_Com = function ({ data, gogo_delte }) {
        <Text>
         {data.size.quantity}
        </Text>
+
        <AntDesign style={{
         marginRight: 5
        }} name="caretdown" size={15} color="black" />
@@ -192,10 +186,40 @@ const Lii_Com = function ({ data, gogo_delte }) {
        }}> {data.productId.productId.price}</Text>
 
       </View>
+
+     </View>
+     <View style={{
+      width: '90%',
+      //backgroundColor: 'white',
+      margin: 5,
+      display: 'flex',
+
+
+     }}>
+      <View style={{
+       width: '15%',
+       // backgroundColor: 'pink',
+       alignSelf: 'flex-end',
+
+      }}>
+       <TouchableOpacity onPress={() => {
+
+        //->여기서 부터 axios 쿼리 불러와서 지우기..^^:;
+
+        gogo_delte(data.productId.productId._id, data.size.size);
+       }}>
+
+        <Feather style={{
+
+        }} name="x" size={22} color="black" />
+
+       </TouchableOpacity>
+      </View>
+
      </View>
     </View>
    </View>
-  </View>
+  </View >
  )
 
 }

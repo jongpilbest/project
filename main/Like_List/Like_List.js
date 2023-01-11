@@ -7,7 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from '@expo/vector-icons';
 import Lii_Com from "./Lii_Com";
 import { useSelector, useDispatch } from 'react-redux'
-
+import axios from "axios";
 import { tokenAction } from "../../redux/token";
 const Like_List = function ({ navigation }) {
   const token = useSelector((state) => state.token.token);
@@ -15,13 +15,45 @@ const Like_List = function ({ navigation }) {
   const dispatch = useDispatch();
   const [like, setlike] = useState([]);
   const go_del = function (data, size) {
-    dispatch(tokenAction.deleteuser({
+    axios.post('http://192.168.1.104:3000/delete_Cart', {
       id: data,
       size: size
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      //성공시 then 실행
+      .then(function (response) {
+        var change = [...response.data.item];
 
-    }))
+        var aa = [];
+        change.map((el, index) => {
+          el.size.map((ev, index) => {
+            var new_item = {
+              productId: el,
+              size: {
+                size: ev.size,
+                quantity: ev.quantity
+              }
+
+            }
+            aa.push(new_item)
+          })
+        })
+        console.log(aa);
+        //setgood(aa);
+        dispatch(tokenAction.setuser(aa))
+
+      }).catch(function (error) {
+
+        console.log(error.response.data);
+      });
+
+
   }
   useEffect(() => {
+    console.log('카트변화?')
     setlike(cart);
   }), [cart];
 

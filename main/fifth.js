@@ -61,7 +61,7 @@ const fifth = function ({ navigation }) {
 
         <View style={{
           width: '80%',
-          height: 5,
+          height: 4,
           backgroundColor: 'white',
           position: 'absolute',
           bottom: 10,
@@ -235,11 +235,11 @@ const fifth = function ({ navigation }) {
           }}>
             <Text style={{
               fontFamily: 'Rn',
-              fontSize: 22,
+              fontSize: 20,
               marginLeft: 10,
               marginTop: 10
             }}>
-              Size
+              사이즈
             </Text>
             <ScrollView
               showsHorizontalScrollIndicator={false}
@@ -277,7 +277,7 @@ const fifth = function ({ navigation }) {
               fontFamily: 'Rn',
               fontSize: 20,
               //textAlign: 'center',
-              fontWeight: 'bold',
+
               marginLeft: 10,
               marginTop: 10
             }}>
@@ -308,7 +308,7 @@ const fifth = function ({ navigation }) {
               fontFamily: 'Rn',
               fontSize: 20,
               //textAlign: 'center',
-              fontWeight: 'bold',
+
               marginLeft: 10,
               marginTop: 10
             }}>
@@ -357,7 +357,7 @@ const fifth = function ({ navigation }) {
               marginTop: 10,
             }}>
               <TouchableOpacity onPress={() => {
-                axios.post('http://192.168.1.102:3000/cart', {
+                axios.post('http://192.168.1.104:3000/cart', {
                   "_id": data._id,
                   "size": size
                 },
