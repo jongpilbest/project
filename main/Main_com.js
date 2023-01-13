@@ -22,9 +22,13 @@ const Main_com = function ({ navigation, total }) {
 
 
  return (
-  <TouchableOpacity onPress={() =>
+  <TouchableOpacity onPress={() => {
 
-   navigation.navigate('fifth', { total })}>
+   navigation.navigate('fifth', { data: total })
+
+  }
+   //navigation.navigate('fifth', { total })
+  }>
 
 
    <View style={{

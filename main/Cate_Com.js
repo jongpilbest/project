@@ -6,7 +6,7 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-
+import axios from "axios";
 
 const Cate_Com = function ({ navigation, data }) {
 
@@ -21,7 +21,25 @@ const Cate_Com = function ({ navigation, data }) {
    borderWidth: 2
 
   }}>
-   <TouchableOpacity onPress={() => navigation.navigate('Ca_in', { categori: '오리지널스' })}>
+   <TouchableOpacity onPress={() => {
+    //data.name
+    axios.get(`http://192.168.1.101:3000/get_categori/${data.search}`,
+
+     { withCredentials: true })
+     //성공시 then 실행
+     .then(function (response) {
+
+
+      navigation.navigate('Ca_in', { data: response.data })
+
+     }).catch(function (error) {
+
+      console.log(error.response.data);
+     });
+
+    //navigation.navigate('Ca_in')  
+   }
+   }>
     <View style={{
      width: '100%',
      height: '100%',

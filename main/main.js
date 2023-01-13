@@ -31,7 +31,7 @@ const main = function ({ navigation }) {
     dispatch(tokenAction.settoken(''));
   }, [])
   const getmain_football = function () {
-    axios.get('http://192.168.1.104:3000/fifa', {
+    axios.get('http://192.168.1.101:3000/fifa', {
     })
       //성공시 then 실행
       .then(function (response) {
@@ -46,7 +46,7 @@ const main = function ({ navigation }) {
   }
 
   const getmain_winterl = function () {
-    axios.get('http://192.168.1.104:3000/winter', {
+    axios.get('http://192.168.1.101:3000/winter', {
 
     })
       //성공시 then 실행

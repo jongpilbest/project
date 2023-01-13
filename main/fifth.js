@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, ScrollView, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
 import { useSelector, useDispatch } from 'react-redux'
-
+import { FontAwesome } from '@expo/vector-icons';
 //import { ScrollView } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons';
 import { tokenAction } from '../redux/token'
@@ -14,16 +14,41 @@ import axios from "axios";
 
 const fifth = function ({ navigation }) {
   const dispatch = useDispatch();
-  const data = navigation.getParam('total');
+  const data = navigation.getParam('data');
   //data에서 이름 , 카테고리 , 가격 , 사이즈  보내면됨
   const token = useSelector((state) => state.token.token);
-  const [checkfirst, setfirst] = useState(5);
-  const [checksecond, setsecond] = useState(0);
+
+
   const [count, setcount] = useState(0);
   const [size, setsize] = useState(0);
-  const [good, setgood] = useState([]);
+  const [heart, setheart] = useState(0);
 
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+  const go_heart = function () {
+    if (heart == 0) {
+      setheart(1);
+    }
+    else {
+      setheart(0);
+    }
+  }
+  const gogo_heart = function () {
+    if (heart == 1) {
+      return <FontAwesome
+        style={{ margin: 13 }}
+        name="heart" size={21} color="black" />
+    }
+    else {
+
+      return <FontAwesome
+        style={{ margin: 13 }}
+        name="heart-o" size={21} color="black" />
+
+    }
+
+  }
+
+
   const autoScroll = function () {
 
 
@@ -198,17 +223,31 @@ const fifth = function ({ navigation }) {
             borderLeftColor: 'transparent',
             borderRightColor: 'transparent'
           }}>
-            <Text style={{
-              fontFamily: 'Rn',
-              fontSize: 22,
-              marginLeft: 10,
-              marginTop: 10
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+
             }}>
-              {data.product_name}
-            </Text>
+              <Text style={{
+                fontFamily: 'Rn',
+                fontSize: 17,
+                marginLeft: 10,
+                marginTop: 10
+              }}>
+                {data.product_name}
+              </Text>
+              <TouchableOpacity onPress={() => go_heart()}>
+                <View>
+                  {gogo_heart()}
+                </View>
+              </TouchableOpacity>
+
+
+            </View>
+
             <Text style={{
               fontFamily: 'Rn',
-              fontSize: 13,
+              fontSize: 12,
               marginLeft: 10,
               color: '#808080'
             }}>
@@ -216,7 +255,7 @@ const fifth = function ({ navigation }) {
             </Text>
             <Text style={{
               fontFamily: 'Rn',
-              fontSize: 20,
+              fontSize: 17,
               marginLeft: 10
             }}>
               {`₩ ${data.price}원`}
@@ -224,7 +263,7 @@ const fifth = function ({ navigation }) {
           </View>
           <View style={{
             width: '100%',
-            height: Dimensions.get('window').height / 7,
+            height: Dimensions.get('window').height / 9,
 
             backgroundColor: 'white',
             borderBottomColor: '#E3E3E3',
@@ -235,7 +274,7 @@ const fifth = function ({ navigation }) {
           }}>
             <Text style={{
               fontFamily: 'Rn',
-              fontSize: 20,
+              fontSize: 17,
               marginLeft: 10,
               marginTop: 10
             }}>
@@ -260,7 +299,7 @@ const fifth = function ({ navigation }) {
           </View>
           <View style={{
             width: '100%',
-            height: Dimensions.get('window').height / 12,
+            height: Dimensions.get('window').height / 15,
 
             backgroundColor: 'white',
             borderBottomColor: '#E3E3E3',
@@ -275,7 +314,7 @@ const fifth = function ({ navigation }) {
             <Text style={{
               color: 'black',
               fontFamily: 'Rn',
-              fontSize: 20,
+              fontSize: 17,
               //textAlign: 'center',
 
               marginLeft: 10,
@@ -291,7 +330,7 @@ const fifth = function ({ navigation }) {
           </View>
           <View style={{
             width: '100%',
-            height: Dimensions.get('window').height / 12,
+            height: Dimensions.get('window').height / 15,
 
             backgroundColor: 'white',
             borderBottomColor: '#E3E3E3',
@@ -306,7 +345,7 @@ const fifth = function ({ navigation }) {
             <Text style={{
               color: 'black',
               fontFamily: 'Rn',
-              fontSize: 20,
+              fontSize: 17,
               //textAlign: 'center',
 
               marginLeft: 10,
@@ -322,14 +361,14 @@ const fifth = function ({ navigation }) {
           </View>
           <View style={{
             width: '100%',
-            height: Dimensions.get('window').height / 14,
+            height: Dimensions.get('window').height / 15,
             //backgroundColor: 'blue',
             flexDirection: 'row',
             justifyContent: 'space-between'
           }} >
             <View style={{
               width: '40%',
-              height: '70%',
+              height: '60%',
               backgroundColor: 'black',
               marginLeft: 10,
               marginTop: 10,
@@ -337,7 +376,7 @@ const fifth = function ({ navigation }) {
             }}>
               <Text style={{
                 color: 'white',
-                fontSize: 17,
+                fontSize: 15,
                 fontFamily: 'Rn',
 
                 textAlign: 'center'
@@ -348,7 +387,7 @@ const fifth = function ({ navigation }) {
             </View>
             <View style={{
               width: '40%',
-              height: '70%',
+              height: '60%',
               backgroundColor: 'white',
               marginRight: 10,
               justifyContent: 'center',
@@ -357,7 +396,7 @@ const fifth = function ({ navigation }) {
               marginTop: 10,
             }}>
               <TouchableOpacity onPress={() => {
-                axios.post('http://192.168.1.104:3000/cart', {
+                axios.post('http://192.168.1.101:3000/cart', {
                   "_id": data._id,
                   "size": size
                 },
@@ -401,7 +440,7 @@ const fifth = function ({ navigation }) {
 
                 <Text style={{
                   color: 'black',
-                  fontSize: 17,
+                  fontSize: 15,
                   fontFamily: 'Rn',
 
                   textAlign: 'center'

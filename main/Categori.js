@@ -38,7 +38,7 @@ const Categori = function ({ navigation }) {
     }}>
      {
       data.map((el, index) => {
-       return <Cate_Com data={el} key={index}></Cate_Com>
+       return <Cate_Com navigation={navigation} data={el} key={index}></Cate_Com>
       })
      }
     </View >

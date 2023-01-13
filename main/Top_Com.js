@@ -6,8 +6,11 @@
 
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
+import { useSelector, useDispatch } from 'react-redux'
+import axios from "axios"
 
 const Top_Com = function ({ navigation, data }) {
+ const token = useSelector((state) => state.token.token);
  const coco_text = function () {
   if (data.product_name.length > 11) {
    return data.product_name.substr(0, 10) + "..."
@@ -28,7 +31,32 @@ const Top_Com = function ({ navigation, data }) {
     backgroundColor: '#EBEBEB',
     margin: 5
    }}>
-    <TouchableOpacity onPress={() => navigation.navigate('fifth')}>
+    <TouchableOpacity onPress={() => {
+
+     console.log(navigation)
+     navigation.navigate('fifth', { data: data })
+
+     /*
+     var re_data = '';
+     axios.get(`http://192.168.1.101:3000/product/${data._id}`)
+
+      .then(function (response) {
+       re_data = (response.data.data);
+   navigation.navigate('fifth', { data: re_data })
+
+
+      }).catch(function (error) {
+       console.log(error);
+      });
+
+  
+     //goto_size(re_data)
+
+    }
+  */
+    }}
+
+    >
 
      <View style={{
       width: '100%',
@@ -89,7 +117,7 @@ const Top_Com = function ({ navigation, data }) {
 
     </TouchableOpacity>
    </View>
-  </View>
+  </View >
  )
 
 }

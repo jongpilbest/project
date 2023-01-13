@@ -11,6 +11,8 @@ import AppLoading from "expo-app-loading";
 import { createStackNavigator } from "react-navigation-stack";
 //import { Provider } from "react-redux";
 import { Foundation } from '@expo/vector-icons';
+import Top_Com from './main/Top_Com';
+import Cate_Com from './main/Cate_Com';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import second from './main/second';
 import New_ from './main/login/New_';
@@ -69,8 +71,11 @@ const navigator =
         Top_men: Top_men,
         Top_kid: Top_kid,
         Categori: Categori,
+        Cate_Com: Cate_Com,
         Ca_in: Ca_in,
         fifth: fifth,
+        Top_Com: Top_Com
+
       }, {
         navigationOptions: {
           tabBarLabel: () => { return null },

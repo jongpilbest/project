@@ -15,7 +15,7 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
     {
      color: 'white',
      fontFamily: 'Rn',
-     fontSize: 15,
+     fontSize: 13,
      textAlign: 'center',
      fontWeight: 'bold',
      //backgroundColor: 'blue'
@@ -28,7 +28,7 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
     {
      color: 'black',
      fontFamily: 'Rn',
-     fontSize: 15,
+     fontSize: 13,
      textAlign: 'center',
      fontWeight: 'bold',
      //backgroundColor: 'blue'
@@ -44,8 +44,8 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
   if (data == size) {
    return (
     {
-     width: 70,
-     height: 30,
+     width: 55,
+     height: 25,
      backgroundColor: 'black',
      display: 'flex',
      borderWidth: 1,
@@ -57,8 +57,8 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
   else {
    return (
     {
-     width: 70,
-     height: 30,
+     width: 55,
+     height: 25,
      backgroundColor: 'white',
      display: 'flex',
      borderWidth: 1,
