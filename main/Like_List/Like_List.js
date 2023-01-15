@@ -15,7 +15,7 @@ const Like_List = function ({ navigation }) {
   const dispatch = useDispatch();
   const [like, setlike] = useState([]);
   const go_del = function (data, size) {
-    axios.post('http://192.168.1.101:3000/delete_Cart', {
+    axios.post('http://192.168.1.105:3000/delete_Cart', {
       id: data,
       size: size
     }, {

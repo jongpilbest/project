@@ -169,7 +169,7 @@ const Login = function ({ navigation, state }) {
 
       }}>
        <TouchableOpacity onPress={() => {
-        axios.post('http://192.168.1.101:3000/signin', {
+        axios.post('http://192.168.1.105:3000/signin', {
          "email": title,
          "password": title2
 
@@ -252,7 +252,7 @@ const Login = function ({ navigation, state }) {
     </View>
    }
    {
-    token && navigation.navigate('My_page')
+    //token && navigation.navigate('My_page')
    }
 
   </View >

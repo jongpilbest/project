@@ -1,48 +1,74 @@
 
 
 import React, { useState, useContext, useEffect, useRef } from "react"
-import { View, Image, TextInput, ScrollView, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
+import { View, Image, Modal, ScrollView, StyleSheet, Pressable, TouchableOpacity, Button, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
 import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesome } from '@expo/vector-icons';
 //import { ScrollView } from "react-native-gesture-handler";
+import { EvilIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { tokenAction } from '../redux/token'
 import Size_Com from "./Size_Com";
 import axios from "axios";
 
-
 const fifth = function ({ navigation }) {
+
+
   const dispatch = useDispatch();
   const data = navigation.getParam('data');
+
   //data에서 이름 , 카테고리 , 가격 , 사이즈  보내면됨
   const token = useSelector((state) => state.token.token);
 
-
+  const like_list = useSelector((state) => state.token.like);
   const [count, setcount] = useState(0);
   const [size, setsize] = useState(0);
   const [heart, setheart] = useState(0);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+  useEffect(() => {
+
+
+  }, [])
+
   const go_heart = function () {
-    if (heart == 0) {
-      setheart(1);
+    setheart(!heart);
+
+    console.log('검은색?');
+
+    axios.post('http://192.168.1.105:3000/like', {
+      id: data._id
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     }
-    else {
-      setheart(0);
-    }
+    )
+      .then(function (response) {
+
+        console.log('프론트 잘 받앗니');
+        dispatch(tokenAction.setlike(response.data.data))
+
+      }).catch(function (error) {
+
+        console.log(error);
+      });
+
   }
-  const gogo_heart = function () {
+  const gogo_heart = function (id) {
+
     if (heart == 1) {
       return <FontAwesome
         style={{ margin: 13 }}
-        name="heart" size={21} color="black" />
+        name="heart" size={22} color="black" />
     }
     else {
 
       return <FontAwesome
         style={{ margin: 13 }}
-        name="heart-o" size={21} color="black" />
+        name="heart-o" size={22} color="black" />
 
     }
 
@@ -74,9 +100,174 @@ const fifth = function ({ navigation }) {
 
     }}>
 
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible2(!modalVisible2);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={
+              {
+                width: '100%',
+                height: '15%',
+                backgroundColor: 'black',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 2,
+              }
+
+            }>
+              <Text style={styles.modalText}>선호상품으로 등록됬습니다</Text>
+              <TouchableOpacity onPress={() =>
+                setModalVisible2(!modalVisible2)}>
+                <EvilIcons name="close" size={26} color="white" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={
+                {
+                  width: '100%',
+                  height: '25%',
+                  backgroundColor: 'black',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: 2,
+                }
+
+              }>
+                <Text style={styles.modalText}>장바구니에 상품이 추가됐습니다</Text>
+                <TouchableOpacity onPress={() =>
+                  setModalVisible(!modalVisible)}>
+                  <EvilIcons name="close" size={26} color="white" />
+                </TouchableOpacity>
+              </View>
+
+
+              <View style={
+                {
+                  width: '100%',
+                  height: '100%',
+
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginTop: 10
+
+
+                }
+
+              }>
+                <View style={{
+                  width: '40%',
+                  height: '60%',
+                  // backgroundColor: 'yellow'
+                }}>
+                  <Image
+
+
+                    style={{
+                      width: '100%',
+                      resizeMode: 'cover',
+                      //transform: [{ scale: 0.5 }],
+                      height: '100%'
+                      , backgroundColor: '#EBEEEF',
+
+                    }}
+                    source={{ uri: data.product_image[0] }}
+                  />
+                </View>
+                <View style={{
+                  width: '55%',
+                  height: '60%',
+
+                  flexDirection: 'column'
+                  ,
+                  justifyContent: 'center'
+                }}>
+                  <View style={{
+                    width: '100%',
+                    height: '22%',
+
+                    margin: 3
+                  }}>
+                    <Text style={{
+                      fontFamily: 'Rn',
+                      fontSize: 12
+                    }}>
+                      {data.product_name}
+                    </Text>
+
+                  </View>
+                  <View style={{
+                    width: '50%',
+                    height: '20%',
+
+                    margin: 3
+                  }}>
+                    <Text style={{
+                      fontFamily: 'Rn',
+                      fontSize: 12
+                    }}>
+                      {size}
+                    </Text>
+
+
+                  </View>
+                  <View style={{
+                    width: '50%',
+                    height: '20%',
+                    backgroundColor: 'black',
+                    margin: 3
+                  }}>
+                    <Text style={{
+                      fontFamily: 'Rn',
+                      fontSize: 12,
+                      color: 'white',
+                      marginLeft: 10
+
+                    }}>
+                      {`₩ ${data.price}원`}
+                    </Text>
+
+                  </View>
+
+
+                </View>
+
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+      </View>
+
       <View style={{
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 2.5,
+        height: Dimensions.get('window').height / 2.2,
         position: 'relative',
         //backgroundColor: 'yellow',
         overflow: 'hidden'
@@ -86,7 +277,7 @@ const fifth = function ({ navigation }) {
 
         <View style={{
           width: '80%',
-          height: 4,
+          height: 2,
           backgroundColor: 'white',
           position: 'absolute',
           bottom: 10,
@@ -122,23 +313,26 @@ const fifth = function ({ navigation }) {
 
             width: Dimensions.get('window').width * 4,
             height: '100%',
-            backgroundColor: 'white',
+            backgroundColor: '#EBEEE',
             flexDirection: 'row'
 
           }}>
             <View style={{
               width: Dimensions.get('window').width,
               height: '100%',
-              //backgroundColor: 'blue',
+              backgroundColor: '#EBEEEF',
               zIndex: 1,
               flex: 1,
+
             }}>
               <Image
 
                 //resizeMode="cover"
                 style={{
                   width: Dimensions.get('window').width,
+                  // resizeMode: 'contain',
                   height: '100%'
+                  , backgroundColor: '#EBEEEF',
 
                 }}
                 source={{ uri: data.product_image[0] }}
@@ -148,7 +342,7 @@ const fifth = function ({ navigation }) {
             <View style={{
               width: Dimensions.get('window').width,
               flex: 1,
-              backgroundColor: 'blue',
+              // backgroundColor: '#EBEEEF',
               zIndex: 1,
             }}>
               <Image
@@ -156,7 +350,7 @@ const fifth = function ({ navigation }) {
                 //resizeMode="cover"
                 style={{
                   width: Dimensions.get('window').width,
-                  height: '100%'
+                  height: '100%',
 
                 }}
                 source={{ uri: data.product_image[1] }}
@@ -166,7 +360,7 @@ const fifth = function ({ navigation }) {
             <View style={{
               width: Dimensions.get('window').width,
               flex: 1,
-              backgroundColor: 'blue',
+
               zIndex: 1,
             }}>
               <Image
@@ -396,7 +590,10 @@ const fifth = function ({ navigation }) {
               marginTop: 10,
             }}>
               <TouchableOpacity onPress={() => {
-                axios.post('http://192.168.1.101:3000/cart', {
+
+                setModalVisible(!modalVisible)
+
+                axios.post('http://192.168.1.105:3000/cart', {
                   "_id": data._id,
                   "size": size
                 },
@@ -461,6 +658,53 @@ const fifth = function ({ navigation }) {
   )
 
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    width: '100%',
+    height: '100%'
+  },
+  modalView: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#F0F0F0',
+
+    width: '100%',
+    height: '25%',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  modalText: {
+    color: 'white',
+    fontFamily: 'Rn',
+    fontSize: 13,
+
+  },
+
+});
 fifth.navigationOptions = ({ navigation }) => {
   return {
 

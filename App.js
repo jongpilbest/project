@@ -5,6 +5,7 @@ import main from './main/main';
 import { useFonts } from 'expo-font';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import High from './main/Categori/High';
 import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import AppLoading from "expo-app-loading";
@@ -28,6 +29,7 @@ import store from './redux/Store';
 import Top_kid from './main/Top_kid'
 import { Provider } from "react-redux";;
 import { Feather } from '@expo/vector-icons';
+import Low from './main/Categori/Low';
 import Top_men from './main/Top_men';
 import { Entypo } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
@@ -74,7 +76,9 @@ const navigator =
         Cate_Com: Cate_Com,
         Ca_in: Ca_in,
         fifth: fifth,
-        Top_Com: Top_Com
+        Top_Com: Top_Com,
+        High: High,
+        Low: Low
 
       }, {
         navigationOptions: {

@@ -4,7 +4,7 @@ const initialstate = {
  token: '',
  cart: [],
  name: '',
-
+ like: [],
 
 }
 const tokenslice = createSlice({
@@ -48,6 +48,9 @@ const tokenslice = createSlice({
   },
   setname: (state, action) => {
    state.name = action.payload
+  },
+  setlike: (state, action) => {
+   state.like.push(action.payload)
   }
  }
 

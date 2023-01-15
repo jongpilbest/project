@@ -5,13 +5,36 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
+import Catin_Com from "../Catin_Com";
 import { ScrollView } from "react-native-gesture-handler";
-import Catin_Com from "./Catin_Com";
+//import Catin_Com from "./Catin_Com";
 
-const Ca_in = function ({ navigation }) {
+const High = function ({ navigation }) {
  const data = navigation.getParam('data');
- console.log(data, '데이터 넣기')
+ const [change, setchange] = useState([]);
+ console.log(data, '높은가격순 넣기');
+ useEffect(() => {
+
+  data.sort((a, b) => {
+   const nameA = a.price; // ignore upper and lowercase
+   const nameB = b.price; // ignore upper and lowercase
+   if (nameA < nameB) {
+    return 1;
+   }
+   if (nameA > nameB) {
+    return -1;
+   }
+
+   // names must be equal
+   return 0;
+  });
+  console.log(data, '가격변동')
+
+  setchange(data);
+
+ }, [])
+
+
  return (
 
   <View style={{
@@ -56,16 +79,17 @@ const Ca_in = function ({ navigation }) {
         fontFamily: 'Rn',
         fontSize: 14,
 
-        textDecorationLine: 'underline',
        }}
       > 판매순</Text>
       <TouchableOpacity onPress={() => {
-       navigation.navigate('High', { data: data })
+       navigation.navigate('Top_men')
       }}>
        <Text
         style={{
          fontFamily: 'Rn',
-         fontSize: 14
+         fontSize: 14,
+
+         textDecorationLine: 'underline',
         }}
        > 높은 가격순</Text>
 
@@ -109,7 +133,7 @@ const Ca_in = function ({ navigation }) {
        display: 'flex'
       }}>
 
-       {data.map((el, index) => {
+       {change.map((el, index) => {
         return <Catin_Com data={el} key={index}></Catin_Com>
        })}
 
@@ -129,7 +153,7 @@ const Ca_in = function ({ navigation }) {
  )
 
 }
-Ca_in.navigationOptions = () => {
+High.navigationOptions = () => {
  return {
   title: <Text style={{
    fontFamily: 'Rn',
@@ -138,4 +162,4 @@ Ca_in.navigationOptions = () => {
 
  };
 };
-export default Ca_in;
+export default High;
