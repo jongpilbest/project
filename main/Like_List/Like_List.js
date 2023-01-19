@@ -6,13 +6,17 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from '@expo/vector-icons';
 import Lii_Com from "./Lii_Com";
+import { AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux'
 import axios from "axios";
 import { tokenAction } from "../../redux/token";
 const Like_List = function ({ navigation }) {
   const token = useSelector((state) => state.token.token);
   const cart = useSelector((state) => state.token.cart);
+  const price_total = useSelector((state) => state.token.cart_price);
   const dispatch = useDispatch();
+  const [price, setprice] = useState(0);
+
   const [like, setlike] = useState([]);
   const go_del = function (data, size) {
     axios.post('http://192.168.1.105:3000/delete_Cart', {
@@ -53,7 +57,8 @@ const Like_List = function ({ navigation }) {
 
   }
   useEffect(() => {
-    console.log('카트변화?')
+    console.log('카트변화?');
+    console.log(cart)
     setlike(cart);
   }), [cart];
 
@@ -62,19 +67,25 @@ const Like_List = function ({ navigation }) {
   return (
 
     <View style={{
-      backgroundColor: '#F2F5F6',
+      backgroundColor: 'white',
       marginRight: 10,
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
       borderRadius: 5,
 
 
+
     }}>
+
+
+
+
+
 
       <View style={{
         backgroundColor: 'white',
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height * 1.6,
+        height: Dimensions.get('window').height * 0.76,
         display: 'flex',
         alignItems: 'center',
 
@@ -87,7 +98,7 @@ const Like_List = function ({ navigation }) {
 
           //  backgroundColor: 'black'
 
-          // justifyContent: 'space-between'
+
         }}>
 
 
@@ -150,6 +161,7 @@ const Like_List = function ({ navigation }) {
 
                 like.map((el, inex) => {
                   return <Lii_Com key={inex}
+                    count_price={(fir, second) => countt(fir, second)}
                     gogo_delte={(data, size) => go_del(data, size)}
                     data={el}></Lii_Com>
                 })
@@ -160,7 +172,96 @@ const Like_List = function ({ navigation }) {
           </View>
         </ScrollView>
       </View >
+      <View style={{
+        width: Dimensions.get('window').width,
+        backgroundColor: '#F0F0F0',
+        height: Dimensions.get('window').height / 9,
 
+
+      }}>
+        <View style={{
+
+          flexDirection: 'row',
+          display: 'flex',
+          height: '50%',
+          alignItems: 'center',
+
+          alignSelf: 'center',
+
+        }}>
+          <View style={{
+            width: '90%',
+            flexDirection: 'row'
+            , alignContent: 'center',
+            justifyContent: 'space-between',
+          }}>
+            <Text style={{
+              fontFamily: 'Rn',
+
+              fontSize: 15
+            }}> 총 주문 금액</Text>
+            <Text style={{
+              fontFamily: 'Rn',
+
+              fontSize: 15
+            }}>{price_total}</Text>
+
+          </View>
+
+
+
+        </View>
+        <View style={{
+
+          flexDirection: 'row',
+          display: 'flex',
+          height: '50%',
+          backgroundColor: 'black',
+          width: '100%',
+
+
+        }}>
+
+
+          <View style={{
+
+            marginRight: 'auto',
+            marginLeft: 'auto',
+            height: '100%',
+            alignSelf: 'center',
+            width: '90%',
+            backgroundColor: 'black',
+
+            display: 'flex',
+            flexDirection: 'row'
+            , justifyContent: 'space-between',
+
+          }}>
+
+            <Text style={{
+              fontFamily: 'Rn',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              fontSize: 15,
+              color: 'white'
+            }}>
+              결제 하기
+            </Text>
+
+
+            <AntDesign
+              style={{
+                marginTop: 'auto',
+                marginBottom: 'auto',
+              }}
+              name="arrowright" size={24} color="white" />
+          </View>
+
+        </View>
+
+
+
+      </View>
 
 
 
@@ -176,7 +277,7 @@ Like_List.navigationOptions = () => {
       fontFamily: 'Rn',
       textAlign: 'center',
       fontSize: 15
-    }}> 선호상품 </Text>,
+    }}> 장바구니 </Text>,
 
   };
 };

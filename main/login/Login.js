@@ -177,7 +177,7 @@ const Login = function ({ navigation, state }) {
          //성공시 then 실행
          .then(function (response) {
 
-          console.log(response.data.user);
+          console.log(response.data);
 
           dispatch(tokenAction.settoken(response.data.token))
           var change = [...response.data.user];
@@ -200,7 +200,7 @@ const Login = function ({ navigation, state }) {
           //console.log(response.data.user_info, '아이디');
           dispatch(tokenAction.setname(response.data.user_info))
           dispatch(tokenAction.setuser(aa))
-
+          dispatch(tokenAction.setlike(response.data.like))
           // navigation.navigate('My_page', { user: response.data.user });
          }).catch(function (error) {
           //console.log(error)

@@ -5,6 +5,7 @@ const initialstate = {
  cart: [],
  name: '',
  like: [],
+ cart_price: 0
 
 }
 const tokenslice = createSlice({
@@ -50,7 +51,15 @@ const tokenslice = createSlice({
    state.name = action.payload
   },
   setlike: (state, action) => {
-   state.like.push(action.payload)
+   state.like = action.payload
+  },
+  setprice: (state, action) => {
+   console.log(action.payload, 'redux 확인좀', typeof (action.payload))
+   state.cart_price = state.cart_price + action.payload
+   console.log(state.cart_price)
+  },
+  setminusprice: (state, action) => {
+   state.cart_price = state.cart_price - action.payload;
   }
  }
 

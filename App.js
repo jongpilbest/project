@@ -13,9 +13,11 @@ import { createStackNavigator } from "react-navigation-stack";
 //import { Provider } from "react-redux";
 import { Foundation } from '@expo/vector-icons';
 import Top_Com from './main/Top_Com';
+import New_fifth from './main/new_fifth/New_fifth';
 import Cate_Com from './main/Cate_Com';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import second from './main/second';
+import REal_like from './main/REal_like/REal_like';
 import New_ from './main/login/New_';
 import My_page from './main/My_page/My_page';
 import good_js from './main/good_js';
@@ -94,13 +96,14 @@ const navigator =
       cart: createStackNavigator({
 
         Like_List: Like_List,
+        Cart: Cart,
 
       }, {
         navigationOptions: {
           tabBarLabel: () => { return null },
           tabBarIcon: ({ tintColor }) => (
+            <Feather name="shopping-cart" size={24} color="black" />
 
-            <Feather name="heart" size={24} color="black" />
 
 
           ),
@@ -118,14 +121,14 @@ const navigator =
 
       Mypage_main: createStackNavigator({
 
-        Cart: Cart
-
+        //REal_like: REal_like
+        New_fifth: New_fifth
       }, {
         navigationOptions: {
           tabBarLabel: () => { return null },
           tabBarIcon: ({ tintColor }) => (
 
-            <Feather name="shopping-cart" size={24} color="black" />
+            <Feather name="heart" size={24} color="black" />
 
 
           ),

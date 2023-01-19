@@ -11,6 +11,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { tokenAction } from '../redux/token'
 import Size_Com from "./Size_Com";
 import axios from "axios";
+import { cos } from "react-native-reanimated";
 
 const fifth = function ({ navigation }) {
 
@@ -29,7 +30,23 @@ const fifth = function ({ navigation }) {
   const [modalVisible2, setModalVisible2] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   useEffect(() => {
+    console.log(data);
+    axios.get(`http://192.168.1.105:3000/like_total_lost/${data._id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+    )
+      .then(function (response) {
+        const heart = response.data.data;
+        console.log(heart);
+        setheart(heart);
 
+
+      }).catch(function (error) {
+
+        console.log(error);
+      });
 
   }, [])
 
@@ -45,16 +62,15 @@ const fifth = function ({ navigation }) {
         'Authorization': `Bearer ${token}`
       }
     }
-    )
-      .then(function (response) {
+    ).then(function (response) {
 
-        console.log('프론트 잘 받앗니');
-        dispatch(tokenAction.setlike(response.data.data))
+      console.log('프론트 잘 받앗니', response.data.data);
+      dispatch(tokenAction.setlike(response.data.data))
 
-      }).catch(function (error) {
+    }).catch(function (error) {
 
-        console.log(error);
-      });
+      console.log(error);
+    });
 
   }
   const gogo_heart = function (id) {
@@ -592,10 +608,11 @@ const fifth = function ({ navigation }) {
               <TouchableOpacity onPress={() => {
 
                 setModalVisible(!modalVisible)
+                console.log('사이즈 체크좀', size)
 
                 axios.post('http://192.168.1.105:3000/cart', {
                   "_id": data._id,
-                  "size": size
+                  "size": size[0]
                 },
                   {
                     headers: {

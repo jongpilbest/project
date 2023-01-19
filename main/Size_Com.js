@@ -7,7 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 const Size_Com = function ({ navigation, data, goto_size, size }) {
-
+ //console.log(data, '사이즈')
 
  const desing_text = function () {
   if (data == size) {
@@ -18,9 +18,8 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
      fontSize: 13,
      textAlign: 'center',
      fontWeight: 'bold',
-     //backgroundColor: 'blue'
+     //backgroundColor: 'blue',
     }
-
    )
   }
   else {
@@ -82,7 +81,7 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
    <TouchableOpacity onPress={() => goto_size(data)}>
     <Text style={
      desing_text()
-    }> {data}</Text>
+    }> {data[0]}</Text>
    </TouchableOpacity>
 
 
