@@ -24,7 +24,7 @@ const Main_com = function ({ navigation, total }) {
  return (
   <TouchableOpacity onPress={() => {
 
-   navigation.navigate('fifth', { data: total })
+   navigation.navigate('New_fifth', { data: total })
 
   }
    //navigation.navigate('fifth', { total })
