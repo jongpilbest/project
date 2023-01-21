@@ -34,7 +34,7 @@ const Top_Com = function ({ navigation, data }) {
         <TouchableOpacity onPress={() => {
 
           console.log(navigation)
-          navigation.navigate('fifth', { data: data })
+          navigation.navigate('New_fifth', { data: data })
 
           /*
           var re_data = '';

@@ -54,11 +54,12 @@ const tokenslice = createSlice({
    state.like = action.payload
   },
   setprice: (state, action) => {
-   console.log(action.payload, 'redux 확인좀', typeof (action.payload))
-   state.cart_price = state.cart_price + action.payload
-   console.log(state.cart_price)
+
+   state.cart_price = action.payload
+
   },
   setminusprice: (state, action) => {
+   console.log(action.payload, 'redux마이너스', typeof (action.payload))
    state.cart_price = state.cart_price - action.payload;
   }
  }

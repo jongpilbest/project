@@ -17,6 +17,17 @@ const Real_Com = function ({ data, gogo_delte }) {
     setsize(data);
     console.log(data);
   }
+  const coco_text = function () {
+    if (data.productId.product_name.length > 11) {
+      console.log('여기좀')
+      return data.productId.product_name.substr(0, 10) + "..."
+    }
+    else {
+      return data.productId.product_name
+    }
+
+
+  }
 
   const size_data = ["230", "240", "250", "260", "270", "280"]
   return (
@@ -172,10 +183,9 @@ const Real_Com = function ({ data, gogo_delte }) {
             <Text style={{
               fontFamily: 'Rn',
               fontSize: 14,
-              marginLeft: 10,
+              marginLeft: 5,
               marginTop: 10
-            }}>{
-                data.productId.product_name}</Text>
+            }}>  {coco_text()}</Text>
           </View>
 
           <Text style={{

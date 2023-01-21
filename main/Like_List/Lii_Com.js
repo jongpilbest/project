@@ -20,7 +20,12 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
         console.log(response.data);
         setopcacity(response.data.data);
         if (response.data.data == 0) {
-          dispatch(tokenAction.setprice(data.productId.productId.price))
+          console.log('존재하다')
+          dispatch(tokenAction.setprice(data.productId.productId.price * data.size.quantity))
+        }
+        else {
+          console.log('비존재하다')
+          dispatch(tokenAction.setminusprice(data.productId.productId.price * data.size.quantity))
         }
       }).catch(function (error) {
         console.log(error.data);
@@ -29,6 +34,19 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
 
 
   }, [])
+
+
+  const coco_text = function () {
+    if (data.productId.productId.product_name.length > 11) {
+
+      return data.productId.productId.product_name.substr(0, 10) + "..."
+    }
+    else {
+      return data.productId.productId.product_name
+    }
+
+
+  }
 
 
   const gogo_opactuy = function () {
@@ -79,7 +97,7 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
             fontSize: 14,
             marginLeft: 10,
             marginTop: 10
-          }}>{data.productId.productId.product_name}</Text>
+          }}> {coco_text()}</Text>
           <Text style={{
             fontFamily: 'Rn',
             color: '#808080',
@@ -225,7 +243,8 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
 
                 //->여기서 부터 axios 쿼리 불러와서 지우기..^^:;
                 if (opacity == 0) {
-                  dispatch(tokenAction.setminusprice(data.productId.productId.price))
+                  console.log(data.productId.productId.price * data.size.quantity, '여기마이너스')
+                  dispatch(tokenAction.setminusprice(data.productId.productId.price * data.size.quantity))
                 }
                 setopcacity(0);
                 gogo_delte(data.productId.productId._id, data.size.size);

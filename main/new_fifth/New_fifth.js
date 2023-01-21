@@ -17,6 +17,8 @@ const New_fifth = function ({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [heart, setheart] = useState(0);
+  const [gogo, setgogo] = useState(22);
+
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token.token);
   const data = navigation.getParam('data');
@@ -55,7 +57,6 @@ const New_fifth = function ({ navigation }) {
     }
     ).then(function (response) {
 
-      console.log('프론트 잘 받앗니', response.data.data);
       dispatch(tokenAction.setlike(response.data.data))
 
     }).catch(function (error) {
@@ -81,12 +82,93 @@ const New_fifth = function ({ navigation }) {
 
   }
   const fifth_desig = function (data) {
-
-
     setsize(data);
 
   }
+  const stop_Cart = function (data) {
+    console.log('데이터 변화', data)//useRef써서 조정하기 
+    setgogo(data)
 
+  }
+
+
+  const go_cart = function () {
+    console.log(gogo, '안바귐?')
+    if (gogo == 2) {
+
+
+      return <TouchableOpacity onPress={() => {
+
+        setModalVisible(!modalVisible)
+
+        axios.post('http://192.168.1.105:3000/cart', {
+          "_id": data._id,
+          "size": size
+        },
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }
+
+        )
+          //성공시 then 실행
+          .then(function (response) {
+            var change = [...response.data.item];
+            console.log(change)
+
+            var aa = [];
+            change.map((el, index) => {
+              el.size.map((ev, index) => {
+                var new_item = {
+                  productId: el,
+                  size: {
+                    size: ev.size,
+                    quantity: ev.quantity
+                  }
+
+                }
+                aa.push(new_item)
+              })
+            })
+
+
+            dispatch(tokenAction.setuser(aa))
+
+            console.log('더하기 왜 안함', data.price)
+            dispatch(tokenAction.setprice(data.price))
+          }).catch(function (error) {
+
+
+          });
+      }}>
+
+        <Text style={{
+          fontFamily: 'Rn',
+          fontSize: 13,
+          textAlign: 'center',
+          marginTop: 'auto',
+          marginBottom: 'auto',
+          color: 'black'
+        }}>
+          장바구니
+        </Text>
+      </TouchableOpacity>
+    }
+    else if (gogo == 1) {
+
+      return <Text style={{
+        fontFamily: 'Rn',
+        fontSize: 13,
+        textAlign: 'center',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        color: 'black'
+      }}>
+        장바구니
+      </Text>
+    }
+  }
   return (
 
     <View style={{
@@ -105,7 +187,7 @@ const New_fifth = function ({ navigation }) {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
@@ -229,38 +311,6 @@ const New_fifth = function ({ navigation }) {
 
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible2(!modalVisible2);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={
-              {
-                width: '100%',
-                height: '15%',
-                backgroundColor: 'black',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: 2,
-              }
-
-            }>
-              <Text style={styles.modalText}>선호상품으로 등록됬습니다</Text>
-              <TouchableOpacity onPress={() =>
-                setModalVisible2(!modalVisible2)}>
-                <EvilIcons name="close" size={26} color="white" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
 
       <ScrollView>
 
@@ -313,11 +363,7 @@ const New_fifth = function ({ navigation }) {
             }}>
 
 
-              <TouchableOpacity onPress={() => go_heart()}>
-                <View>
-                  {gogo_heart()}
-                </View>
-              </TouchableOpacity>
+
               <View style={{
                 width: '100%',
                 height: '100%'
@@ -326,16 +372,28 @@ const New_fifth = function ({ navigation }) {
                 justifyContent: 'center',
 
               }}>
-                <View>
+                <View style={{
+                  flexDirection: 'row',
+                  display: 'flex',
+                  justifyContent: 'space-between'
+                }}>
                   <Text style={{
                     fontFamily: 'Rn',
                     fontSize: 15,
-                    marginLeft: 10
+                    marginLeft: 10,
+                    marginTop: 'auto',
+                    marginBottom: 'auto'
                   }}>
                     {data.product_name}
                   </Text>
+                  <TouchableOpacity onPress={() => go_heart()}>
+                    <View>
+                      {gogo_heart()}
+                    </View>
+                  </TouchableOpacity>
                 </View>
               </View>
+
             </View>
             <View style={{
               width: '100%',
@@ -408,6 +466,7 @@ const New_fifth = function ({ navigation }) {
                 {
                   data.size.map((el, index) => {
                     return <Size_Com
+                      st_p_cart={(data) => stop_Cart(data)}
                       size={size}
                       goto_size={(data) => fifth_desig(data)} key={index} data={el}>
                     </Size_Com>
@@ -451,64 +510,13 @@ const New_fifth = function ({ navigation }) {
             <View style={{
               width: '50%',
               height: '100%',
-              backgroundColor: 'white'
+              backgroundColor: 'white',
+              display: 'flex',
+              justifyContent: 'center'
             }}>
-              <TouchableOpacity onPress={() => {
+              {go_cart()
 
-                setModalVisible(!modalVisible)
-                console.log('사이즈 체크좀', size)
-
-                axios.post('http://192.168.1.105:3000/cart', {
-                  "_id": data._id,
-                  "size": size[0]
-                },
-                  {
-                    headers: {
-                      'Authorization': `Bearer ${token}`
-                    }
-                  }
-
-                )
-                  //성공시 then 실행
-                  .then(function (response) {
-                    var change = [...response.data.item];
-                    console.log(change)
-
-                    var aa = [];
-                    change.map((el, index) => {
-                      el.size.map((ev, index) => {
-                        var new_item = {
-                          productId: el,
-                          size: {
-                            size: ev.size,
-                            quantity: ev.quantity
-                          }
-
-                        }
-                        aa.push(new_item)
-                      })
-                    })
-                    console.log(aa);
-                    //setgood(aa);
-                    dispatch(tokenAction.setuser(aa))
-                    // console.log('??', response.data)
-
-                  }).catch(function (error) {
-
-
-                  });
-              }}>
-
-                <Text style={{
-                  fontFamily: 'Rn',
-                  fontSize: 13,
-                  textAlign: 'center',
-                  marginTop: 'auto',
-                  marginBottom: 'auto',
-                }}>
-                  장바구니
-                </Text>
-              </TouchableOpacity>
+              }
             </View>
             <View>
 

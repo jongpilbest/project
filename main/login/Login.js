@@ -197,7 +197,8 @@ const Login = function ({ navigation, state }) {
            })
           })
 
-          //console.log(response.data.user_info, '아이디');
+
+          dispatch(tokenAction.setprice(response.data.user_total))
           dispatch(tokenAction.setname(response.data.user_info))
           dispatch(tokenAction.setuser(aa))
           dispatch(tokenAction.setlike(response.data.like))

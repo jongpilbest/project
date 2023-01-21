@@ -6,11 +6,27 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-const Size_Com = function ({ navigation, data, goto_size, size }) {
- //console.log(data, '사이즈')
+const Size_Com = function ({ navigation, data, goto_size, size, st_p_cart }) {
+ console.log(size, data[0], '사이즈')
 
  const desing_text = function () {
-  if (data == size) {
+
+
+  if (data[1] == 0) {
+
+   return (
+    {
+     color: 'black',
+     fontFamily: 'Rn',
+     fontSize: 13,
+     textAlign: 'center',
+     fontWeight: 'bold',
+     opacity: 0.3
+    }
+   )
+  }
+
+  else if (data[0] == size) {
    return (
     {
      color: 'white',
@@ -22,7 +38,7 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
     }
    )
   }
-  else {
+  else if (data != size) {
    return (
     {
      color: 'black',
@@ -40,7 +56,26 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
 
 
  const design_size = function () {
-  if (data == size) {
+
+  if (data[1] == 0) {
+   st_p_cart(1);
+
+   return (
+    {
+     width: 55,
+     height: 25,
+     backgroundColor: 'white',
+     display: 'flex',
+     borderWidth: 1,
+     justifyContent: 'center',
+     margin: 10,
+     opacity: 0.3
+    }
+   )
+  }
+  else if (data[0] == size) {
+   console.log('???', '2로가자')
+   st_p_cart(2);
    return (
     {
      width: 55,
@@ -78,7 +113,12 @@ const Size_Com = function ({ navigation, data, goto_size, size }) {
    design_size()
 
   }>
-   <TouchableOpacity onPress={() => goto_size(data)}>
+   <TouchableOpacity onPress={() => {
+
+    goto_size(data[0])
+
+   }}
+   >
     <Text style={
      desing_text()
     }> {data[0]}</Text>

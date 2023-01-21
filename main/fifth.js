@@ -39,7 +39,7 @@ const fifth = function ({ navigation }) {
     )
       .then(function (response) {
         const heart = response.data.data;
-        console.log(heart);
+
         setheart(heart);
 
 
@@ -608,7 +608,7 @@ const fifth = function ({ navigation }) {
               <TouchableOpacity onPress={() => {
 
                 setModalVisible(!modalVisible)
-                console.log('사이즈 체크좀', size)
+
 
                 axios.post('http://192.168.1.105:3000/cart', {
                   "_id": data._id,

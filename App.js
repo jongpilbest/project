@@ -26,6 +26,7 @@ import Ca_in from './main/Ca_in';
 import Cart from './main/Cart/Cart';
 import Categori from './main/Categori';
 import Top_bo from './main/Top_bo';
+
 import fifth from './main/fifth';
 import store from './redux/Store';
 import Top_kid from './main/Top_kid'
@@ -51,7 +52,7 @@ const navigator =
       mainn: createStackNavigator({
         main: main,
         Login: Login,
-        fifth: fifth,
+        New_fifth: New_fifth,
         My_page: My_page,
         New_: New_
       },
@@ -120,9 +121,9 @@ const navigator =
       }),
 
       Mypage_main: createStackNavigator({
-
-        //REal_like: REal_like
-        New_fifth: New_fifth
+        // Cart: Cart,
+        REal_like: REal_like
+        // New_fifth: New_fifth
       }, {
         navigationOptions: {
           tabBarLabel: () => { return null },

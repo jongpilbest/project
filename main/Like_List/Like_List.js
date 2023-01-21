@@ -57,11 +57,10 @@ const Like_List = function ({ navigation }) {
 
   }
   useEffect(() => {
-    console.log('카트변화?');
-    console.log(cart)
+    console.log('카트변화?', price_total);
+    setprice(price_total)
     setlike(cart);
   }), [cart];
-
 
 
   return (
@@ -204,7 +203,7 @@ const Like_List = function ({ navigation }) {
               fontFamily: 'Rn',
 
               fontSize: 15
-            }}>{price_total}</Text>
+            }}>{price}</Text>
 
           </View>
 
