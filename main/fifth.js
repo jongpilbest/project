@@ -55,7 +55,7 @@ const fifth = function ({ navigation }) {
 
     console.log('검은색?');
 
-    axios.post('http://192.168.1.105:3000/like', {
+    axios.post('http://192.168.0.19:3000/like', {
       id: data._id
     }, {
       headers: {

@@ -80,6 +80,7 @@ const navigator =
         Ca_in: Ca_in,
         fifth: fifth,
         Top_Com: Top_Com,
+        New_fifth: New_fifth,
         High: High,
         Low: Low
 

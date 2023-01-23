@@ -9,13 +9,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { EvilIcons } from '@expo/vector-icons';
 import { ScrollView } from "react-native-gesture-handler";
 import Size_Com from "../Size_Com";
+import axios from "axios";
+import { tokenAction } from "../../redux/token";
 const Real_Com = function ({ data, gogo_delte }) {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.token.token);
   const [size, setsize] = useState(0);
   const [modalVisible2, setModalVisible2] = useState(false);
   const fifth_desig = function (data) {
 
     setsize(data);
-    console.log(data);
+
   }
   const coco_text = function () {
     if (data.productId.product_name.length > 11) {
@@ -29,7 +33,6 @@ const Real_Com = function ({ data, gogo_delte }) {
 
   }
 
-  const size_data = ["230", "240", "250", "260", "270", "280"]
   return (
     <View>
       <Modal
@@ -99,8 +102,9 @@ const Real_Com = function ({ data, gogo_delte }) {
                   }}
                   horizontal={true}>
                   {
-                    size_data.map((el, index) => {
+                    data.productId.size.map((el, index) => {
                       return <Size_Com
+
                         size={size}
                         goto_size={(data) => fifth_desig(data)} key={index} data={el}>
                       </Size_Com>
@@ -111,6 +115,8 @@ const Real_Com = function ({ data, gogo_delte }) {
               </View>
 
             </View>
+
+
             <View style={
               {
                 width: '100%',
@@ -122,20 +128,111 @@ const Real_Com = function ({ data, gogo_delte }) {
                 justifyContent: 'space-between',
                 padding: 2,
               }}>
-              <Text style={{
-                fontFamily: 'Rn',
-                fontSize: 15,
-                marginLeft: 5
-                //fontWeight: 'bold'
+              <TouchableOpacity onPress={() => {
+                console.log(data.productId._id, size, data.productId.price, '체크')
+                axios.post('http://192.168.1.105:3000/cart', {
+                  "_id": data.productId._id,
+                  "size": size,
+                  "price": data.productId.price
+                },
+                  {
+                    headers: {
+                      'Authorization': `Bearer ${token}`
+                    }
+                  }
+
+                )
+                  //성공시 then 실행
+                  .then(function (response) {
+                    var change = [...response.data.item];
+                    console.log(response.data, '카트더할때 가격 차이좀')
+
+                    var aa = [];
+                    change.map((el, index) => {
+                      el.size.map((ev, index) => {
+                        var new_item = {
+                          productId: el,
+                          size: {
+                            size: ev.size,
+                            quantity: ev.quantity
+                          }
+
+                        }
+                        aa.push(new_item)
+                      })
+                    })
+
+
+                    dispatch(tokenAction.setuser(aa))
+
+                    dispatch(tokenAction.setprice(response.data.price))
+                    setModalVisible2(!modalVisible2);
+
+                  }).catch(function (error) {
+
+
+                  });
+
+                axios.post('http://192.168.1.105:3000/delete_Like', {
+                  "id": data.productId._id
+                }, {
+                  headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+                })
+
+                  .then(function (response) {
+
+                    dispatch(tokenAction.setlike(response.data.data))
+
+                  }).catch(function (error) {
+                    console.log('error??', error)
+                    console.log(error.response.data);
+                  });
+
+
               }}>
-                장바구니 추가
-              </Text>
-              <EvilIcons
-                style={{
-                  marginRight: 10
-                }}
-                name="cart" size={24} color="black" />
+                <View style={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  position: 'relative',
+
+                  flexDirection: 'row',
+                  // justifyContent: 'space-between'
+                }}>
+
+
+                  <View style={{
+                    width: '90%',
+                    alignSelf: 'center'
+                  }}>
+                    <Text style={{
+                      fontFamily: 'Rn',
+                      fontSize: 15,
+                      marginLeft: 5
+                      //fontWeight: 'bold'
+                    }}>
+                      장바구니 추가
+                    </Text>
+                  </View>
+                  <View style={{
+                    alignSelf: 'center'
+                  }}>
+                    <EvilIcons
+                      style={{
+                        marginRight: 10
+
+
+                      }}
+                      name="cart" size={24} color="black" />
+                  </View>
+
+
+                </View>
+              </TouchableOpacity>
             </View>
+
           </View>
         </View>
       </Modal >
@@ -228,7 +325,7 @@ const Real_Com = function ({ data, gogo_delte }) {
                 marginTop: 'auto',
                 marginBottom: 'auto',
 
-              }}> ₩{data.productId.price}</Text>
+              }}> ₩ {data.productId.price}</Text>
 
             </View>
 

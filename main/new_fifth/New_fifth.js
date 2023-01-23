@@ -17,10 +17,12 @@ const New_fifth = function ({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [heart, setheart] = useState(0);
-  const [gogo, setgogo] = useState(22);
 
+
+  const intervalId = useRef(null);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token.token);
+  const check_price = useSelector((state) => state.token.cart_price);
   const data = navigation.getParam('data');
   useEffect(() => {
     console.log(data);
@@ -32,7 +34,7 @@ const New_fifth = function ({ navigation }) {
     )
       .then(function (response) {
         const heart = response.data.data;
-        console.log(heart);
+        console.log(heart, '여기?');
         setheart(heart);
 
 
@@ -83,18 +85,16 @@ const New_fifth = function ({ navigation }) {
   }
   const fifth_desig = function (data) {
     setsize(data);
-
-  }
-  const stop_Cart = function (data) {
-    console.log('데이터 변화', data)//useRef써서 조정하기 
-    setgogo(data)
-
   }
 
 
   const go_cart = function () {
-    console.log(gogo, '안바귐?')
-    if (gogo == 2) {
+
+    const index_size = data.size.findIndex(el => {
+      return el[0] == size
+    })
+    console.log(index_size)
+    if (index_size != -1 && data.size[index_size][1] > 0) {
 
 
       return <TouchableOpacity onPress={() => {
@@ -103,7 +103,8 @@ const New_fifth = function ({ navigation }) {
 
         axios.post('http://192.168.1.105:3000/cart', {
           "_id": data._id,
-          "size": size
+          "size": size,
+          "price": data.price
         },
           {
             headers: {
@@ -115,7 +116,7 @@ const New_fifth = function ({ navigation }) {
           //성공시 then 실행
           .then(function (response) {
             var change = [...response.data.item];
-            console.log(change)
+            console.log(response.data, '카트더할때 가격 차이좀')
 
             var aa = [];
             change.map((el, index) => {
@@ -135,13 +136,15 @@ const New_fifth = function ({ navigation }) {
 
             dispatch(tokenAction.setuser(aa))
 
-            console.log('더하기 왜 안함', data.price)
-            dispatch(tokenAction.setprice(data.price))
+            dispatch(tokenAction.setprice(response.data.price))
+
+
           }).catch(function (error) {
 
 
           });
       }}>
+
 
         <Text style={{
           fontFamily: 'Rn',
@@ -155,7 +158,7 @@ const New_fifth = function ({ navigation }) {
         </Text>
       </TouchableOpacity>
     }
-    else if (gogo == 1) {
+    else {
 
       return <Text style={{
         fontFamily: 'Rn',
@@ -167,7 +170,9 @@ const New_fifth = function ({ navigation }) {
       }}>
         장바구니
       </Text>
+
     }
+
   }
   return (
 
@@ -262,7 +267,7 @@ const New_fifth = function ({ navigation }) {
                   }}>
                     <Text style={{
                       fontFamily: 'Rn',
-                      fontSize: 12
+                      fontSize: 13
                     }}>
                       {data.product_name}
                     </Text>
@@ -377,20 +382,29 @@ const New_fifth = function ({ navigation }) {
                   display: 'flex',
                   justifyContent: 'space-between'
                 }}>
-                  <Text style={{
-                    fontFamily: 'Rn',
-                    fontSize: 15,
-                    marginLeft: 10,
-                    marginTop: 'auto',
-                    marginBottom: 'auto'
+                  <View style={{
+                    width: '85%',
+                    height: '100%'
                   }}>
-                    {data.product_name}
-                  </Text>
-                  <TouchableOpacity onPress={() => go_heart()}>
-                    <View>
-                      {gogo_heart()}
-                    </View>
-                  </TouchableOpacity>
+                    <Text style={{
+                      fontFamily: 'Rn',
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      marginLeft: 10,
+                      marginTop: 'auto',
+                      marginBottom: 'auto'
+                    }}>
+                      {data.product_name}
+                    </Text>
+                  </View>
+                  <View>
+                    <TouchableOpacity onPress={() => go_heart()}>
+                      <View>
+                        {gogo_heart()}
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+
                 </View>
               </View>
 
@@ -427,7 +441,7 @@ const New_fifth = function ({ navigation }) {
                   color: 'white',
                   textAlign: 'center'
                 }}>
-                  {`₩ ${data.price}원`}
+                  {`₩ ${data.price}`}
                 </Text>
 
               </View>

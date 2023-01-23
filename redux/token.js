@@ -58,9 +58,8 @@ const tokenslice = createSlice({
    state.cart_price = action.payload
 
   },
-  setminusprice: (state, action) => {
-   console.log(action.payload, 'redux마이너스', typeof (action.payload))
-   state.cart_price = state.cart_price - action.payload;
+  setplusprice: (state, action) => {
+   state.cart_price = state.cart_price + action.payload;
   }
  }
 

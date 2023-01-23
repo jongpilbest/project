@@ -10,6 +10,7 @@ import axios from "axios";
 import { tokenAction } from "../../redux/token";
 const Lii_Com = function ({ data, gogo_delte, count_price }) {
   const [opacity, setopcacity] = useState(0);
+  const token = useSelector((state) => state.token.token);
   const dispatch = useDispatch();
   useEffect(() => {
     axios.post(`http://192.168.1.105:3000/Cart_quantity/${data.productId.productId._id}`, {
@@ -17,16 +18,14 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
     })
       //성공시 then 실행
       .then(function (response) {
-        console.log(response.data);
+
         setopcacity(response.data.data);
-        if (response.data.data == 0) {
-          console.log('존재하다')
-          dispatch(tokenAction.setprice(data.productId.productId.price * data.size.quantity))
-        }
-        else {
-          console.log('비존재하다')
+
+        if (response.data.data == 0.6) {
+          console.log('변하니..?')
           dispatch(tokenAction.setminusprice(data.productId.productId.price * data.size.quantity))
         }
+
       }).catch(function (error) {
         console.log(error.data);
       });
@@ -34,6 +33,7 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
 
 
   }, [])
+
 
 
   const coco_text = function () {
@@ -220,7 +220,7 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
                 fontSize: 13,
                 marginTop: 'auto',
                 marginBottom: 'auto'
-              }}> {data.productId.productId.price}</Text>
+              }}> {`₩ ${data.productId.productId.price}`}</Text>
 
             </View>
 
@@ -241,13 +241,15 @@ const Lii_Com = function ({ data, gogo_delte, count_price }) {
             }}>
               <TouchableOpacity onPress={() => {
 
-                //->여기서 부터 axios 쿼리 불러와서 지우기..^^:;
+                //->여기서 부터 axios 쿼리 불러  console.log('오류나냐?')
+
+
                 if (opacity == 0) {
                   console.log(data.productId.productId.price * data.size.quantity, '여기마이너스')
-                  dispatch(tokenAction.setminusprice(data.productId.productId.price * data.size.quantity))
+                  //dispatch(tokenAction.setminusprice(data.productId.productId.price * data.size.quantity))
                 }
                 setopcacity(0);
-                gogo_delte(data.productId.productId._id, data.size.size);
+                gogo_delte(data.productId.productId._id, data.size.size, data.size.quantity * data.productId.productId.price);
               }}>
 
                 <Feather style={{

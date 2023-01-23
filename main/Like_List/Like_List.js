@@ -18,10 +18,11 @@ const Like_List = function ({ navigation }) {
   const [price, setprice] = useState(0);
 
   const [like, setlike] = useState([]);
-  const go_del = function (data, size) {
+  const go_del = function (data, size, price) {
     axios.post('http://192.168.1.105:3000/delete_Cart', {
       id: data,
-      size: size
+      size: size,
+      price: price
     }, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -47,7 +48,8 @@ const Like_List = function ({ navigation }) {
         })
         console.log(aa);
         //setgood(aa);
-        dispatch(tokenAction.setuser(aa))
+        dispatch(tokenAction.setuser(aa));
+        dispatch(tokenAction.setprice(response.data.price))
 
       }).catch(function (error) {
 
@@ -161,7 +163,8 @@ const Like_List = function ({ navigation }) {
                 like.map((el, inex) => {
                   return <Lii_Com key={inex}
                     count_price={(fir, second) => countt(fir, second)}
-                    gogo_delte={(data, size) => go_del(data, size)}
+                    gogo_delte={(data, size, price) => go_del(data, size, price)}
+
                     data={el}></Lii_Com>
                 })
               }

@@ -20,76 +20,79 @@ const Catin_Com = function ({ navigation, data }) {
 
  return (
 
-
-  <View style={{
-   width: Dimensions.get('window').width / 2,
-   height: Dimensions.get('window').height / 3.75,
-   backgroundColor: '#F0F0F0',
-   borderColor: 'white',
-   borderWidth: 2
-  }}>
+  <TouchableOpacity onPress={() =>
+   navigation.navigate('New_fifth', { data: data })
+  }>
    <View style={{
-    width: '100%',
-    height: '80%',
-    //backgroundColor: 'blue'
+    width: Dimensions.get('window').width / 2,
+    height: Dimensions.get('window').height / 3.75,
+    backgroundColor: '#F0F0F0',
+    borderColor: 'white',
+    borderWidth: 2
    }}>
-    <Image
-
-     resizeMode="cover"
-     style={{
-      width: '100%',
-      height: '100%'
-
-     }}
-     source={{ uri: data.product_image[0] }}
-    />
 
     <View style={{
-     width: 80,
-     height: 25,
-     backgroundColor: 'black',
-     position: 'absolute',
-     bottom: 0
+     width: '100%',
+     height: '80%',
+     //backgroundColor: 'blue'
     }}>
+     <Image
+
+      resizeMode="cover"
+      style={{
+       width: '100%',
+       height: '100%'
+
+      }}
+      source={{ uri: data.product_image[0] }}
+     />
+
+     <View style={{
+      width: 80,
+      height: 25,
+      backgroundColor: 'black',
+      position: 'absolute',
+      bottom: 0
+     }}>
+      <Text style={{
+       fontFamily: 'Rn',
+       color: 'white',
+       fontsize: 13,
+       marginLeft: 10
+      }}>
+       {`₩${data.price}`}
+
+      </Text>
+
+     </View>
      <Text style={{
       fontFamily: 'Rn',
-      color: 'white',
-      fontsize: 13,
+      fontSize: 13,
       marginLeft: 10
      }}>
-      {`₩${data.price}`}
 
+      {
+       coco_text()
+
+      }
+     </Text>
+     <Text style={{
+      //fontFamily: 'Rn',
+      fontSize: 9,
+      marginLeft: 10,
+      color: '#808080'
+
+     }}>
+      {data.sebucategori.toString().replace(',', '*')}
      </Text>
 
     </View>
-    <Text style={{
-     fontFamily: 'Rn',
-     fontSize: 13,
-     marginLeft: 10
-    }}>
+    <View>
 
-     {
-      coco_text()
-
-     }
-    </Text>
-    <Text style={{
-     //fontFamily: 'Rn',
-     fontSize: 9,
-     marginLeft: 10,
-     color: '#808080'
-
-    }}>
-     {data.sebucategori.toString().replace(',', '*')}
-    </Text>
+    </View>
 
    </View>
-   <View>
-
-   </View>
-
-  </View>
-
+  </TouchableOpacity>
 
 
  )

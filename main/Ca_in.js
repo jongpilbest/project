@@ -110,7 +110,7 @@ const Ca_in = function ({ navigation }) {
       }}>
 
        {data.map((el, index) => {
-        return <Catin_Com data={el} key={index}></Catin_Com>
+        return <Catin_Com navigation={navigation} data={el} key={index}></Catin_Com>
        })}
 
       </View>

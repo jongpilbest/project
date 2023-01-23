@@ -5,9 +5,11 @@ import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSh
 //import Main_Com from "./main_Com"
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { tokenAction } from "../redux/token";
 const Size_Com = function ({ navigation, data, goto_size, size, st_p_cart }) {
- console.log(size, data[0], '사이즈')
+
+
 
  const desing_text = function () {
 
@@ -58,7 +60,7 @@ const Size_Com = function ({ navigation, data, goto_size, size, st_p_cart }) {
  const design_size = function () {
 
   if (data[1] == 0) {
-   st_p_cart(1);
+   // st_p_cart(1);
 
    return (
     {
@@ -74,8 +76,8 @@ const Size_Com = function ({ navigation, data, goto_size, size, st_p_cart }) {
    )
   }
   else if (data[0] == size) {
-   console.log('???', '2로가자')
-   st_p_cart(2);
+
+
    return (
     {
      width: 55,
