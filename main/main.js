@@ -27,11 +27,12 @@ const main = function ({ navigation }) {
   const dispatch = useDispatch();
   const [football, setfootball] = useState([]);
   const [winter, setwinter] = useState([]);
+  const token = useSelector((state) => state.token.token);
   useEffect(() => {
     dispatch(tokenAction.settoken(''));
   }, [])
   const getmain_football = function () {
-    axios.get('http://192.168.1.105:3000/fifa', {
+    axios.get('http://192.168.1.102:3000/fifa', {
     })
       //성공시 then 실행
       .then(function (response) {
@@ -46,7 +47,7 @@ const main = function ({ navigation }) {
   }
 
   const getmain_winterl = function () {
-    axios.get('http://192.168.1.105:3000/winter', {
+    axios.get('http://192.168.1.102:3000/winter', {
 
     })
       //성공시 then 실행
@@ -380,7 +381,12 @@ main.navigationOptions = ({ navigation }) => {
           name="search" size={24} color="black" />
         <TouchableOpacity onPress={() => {
 
-          navigation.navigate('Login')
+          if (token != '') {
+            navigation.navigate('My_page')
+          }
+          else {
+            navigation.navigate('Login')
+          }
         }}>
 
           <Feather style={{

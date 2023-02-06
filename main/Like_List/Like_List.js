@@ -1,7 +1,7 @@
 
 
 import React, { useState, useContext, useEffect, useRef } from "react"
-import { View, Image, TextInput, SafeAreaView, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
+import { View, Image, TextInput, SafeAreaView, Modal, TouchableOpacity, Button, StyleSheet, Text, Dimensions } from "react-native"
 //import Main_Com from "./main_Com"
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from '@expo/vector-icons';
@@ -11,15 +11,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from "axios";
 import { tokenAction } from "../../redux/token";
 const Like_List = function ({ navigation }) {
+
   const token = useSelector((state) => state.token.token);
   const cart = useSelector((state) => state.token.cart);
   const price_total = useSelector((state) => state.token.cart_price);
   const dispatch = useDispatch();
-  const [price, setprice] = useState(0);
+  const [price, setprice] = useState(price_total);
 
   const [like, setlike] = useState([]);
   const go_del = function (data, size, price) {
-    axios.post('http://192.168.1.105:3000/delete_Cart', {
+    axios.post('http://192.168.1.102:3000/delete_Cart', {
       id: data,
       size: size,
       price: price
@@ -31,15 +32,26 @@ const Like_List = function ({ navigation }) {
       //성공시 then 실행
       .then(function (response) {
         var change = [...response.data.item];
+        setprice(response.data.price);
+        console.log('지울때 금액', setprice);
+
 
         var aa = [];
         change.map((el, index) => {
           el.size.map((ev, index) => {
+            console.log('지울때 여기 들어가야짐');
+            if (ev.opacity == 0.6) {
+              console.log(ev.opacity, '체킥아웃')
+              setprice((data) => data - (el.productId.price * ev.quantity));
+              dispatch(tokenAction.setprice(price))
+              //console.log(change, '가격비교좀')
+            }
             var new_item = {
               productId: el,
               size: {
                 size: ev.size,
-                quantity: ev.quantity
+                quantity: ev.quantity,
+                opacity: ev.opacity
               }
 
             }
@@ -58,11 +70,116 @@ const Like_List = function ({ navigation }) {
 
 
   }
+
+  const server_suro = function (fir, sec, thir, four, six) {
+    axios.post('http://192.168.1.102:3000/suro', {
+      "_id": fir,
+      "size": sec,//원래 데이터 사이즈
+      "quantity": thir,
+      "origin_price": four,
+      "nomal_price": six
+
+    },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+
+    )
+      //성공시 then 실행
+      .then(function (response) {
+        var change = [...response.data.item];
+        console.log(response.data, '변화 수량 확인 데이터 ')
+        setprice(response.data.price);
+        var aa = [];
+        change.map((el, index) => {
+          el.size.map((ev, index) => {
+            if (ev.opacity == 0.6) {
+              setprice((data) => data - (el.productId.price * ev.quantity));
+              dispatch(tokenAction.setprice(price))
+              //console.log(change, '가격비교좀')
+            }
+            var new_item = {
+              productId: el,
+              size: {
+                size: ev.size,
+                quantity: ev.quantity,
+                opacity: ev.opacity
+
+              }
+
+            }
+            aa.push(new_item)
+          })
+        })
+        setlike(aa);
+        dispatch(tokenAction.setprice(response.data.price))
+        dispatch(tokenAction.setuser(aa));
+      }).catch(function (error) {
+
+      });
+
+  }
+
+
+  const opa_function = async function () {
+
+    await axios.post(`http://192.168.1.102:3000/Cart_quantity`, {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(function (response) {
+        console.log(response.data, '카트더할때 가격 차이좀')
+        setprice(response.data.price);
+        var change = [...response.data.item];
+        var aa = [];
+        change.map((el, index) => {
+          el.size.map((ev, index) => {
+
+            if (ev.opacity == 0.6) {
+              setprice((data) => data - (el.productId.price * ev.quantity));
+              dispatch(tokenAction.setprice(price))
+              //console.log(change, '가격비교좀')
+            }
+            var new_item = {
+              productId: el,
+              size: {
+                size: ev.size,
+                quantity: ev.quantity,
+                opacity: ev.opacity
+              }
+
+            }
+            aa.push(new_item)
+          })
+        })
+        dispatch(tokenAction.setuser(aa));
+        setlike(aa);
+        //console.log(like, '어이여기좀')
+
+      }).catch(function (error) {
+
+      });
+
+  }
+
+  useEffect(() => {
+    opa_function();
+    console.log(cart, '처음 카트 확인좀')
+  }, [])
+
+
   useEffect(() => {
     console.log('카트변화?', price_total);
-    setprice(price_total)
     setlike(cart);
   }), [cart];
+
+  useEffect(() => {
+    setprice(price_total)
+  }, [price_total])
+
 
 
   return (
@@ -77,7 +194,6 @@ const Like_List = function ({ navigation }) {
 
 
     }}>
-
 
 
 
@@ -161,10 +277,11 @@ const Like_List = function ({ navigation }) {
               {
 
                 like.map((el, inex) => {
+
                   return <Lii_Com key={inex}
+                    suro_parent={(fir, sec, thir, four, six) => server_suro(fir, sec, thir, four, six)}
                     count_price={(fir, second) => countt(fir, second)}
                     gogo_delte={(data, size, price) => go_del(data, size, price)}
-
                     data={el}></Lii_Com>
                 })
               }

@@ -60,9 +60,16 @@ const tokenslice = createSlice({
   },
   setplusprice: (state, action) => {
    state.cart_price = state.cart_price + action.payload;
+  },
+
+  set_opacity_plus: (state, action) => {
+   console.log(action.payload, '확인용');
+   state.cart[action.payload.size] = {
+    ...state.cart[action.payload.size],
+    opa: action.payload.opacity
+   }
   }
  }
-
 })
 
 

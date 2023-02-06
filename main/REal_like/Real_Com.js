@@ -130,7 +130,7 @@ const Real_Com = function ({ data, gogo_delte }) {
               }}>
               <TouchableOpacity onPress={() => {
                 console.log(data.productId._id, size, data.productId.price, '체크')
-                axios.post('http://192.168.1.105:3000/cart', {
+                axios.post('http://192.168.1.102:3000/cart', {
                   "_id": data.productId._id,
                   "size": size,
                   "price": data.productId.price
@@ -154,7 +154,8 @@ const Real_Com = function ({ data, gogo_delte }) {
                           productId: el,
                           size: {
                             size: ev.size,
-                            quantity: ev.quantity
+                            quantity: ev.quantity,
+                            opacity: ev.opacity
                           }
 
                         }
@@ -173,7 +174,7 @@ const Real_Com = function ({ data, gogo_delte }) {
 
                   });
 
-                axios.post('http://192.168.1.105:3000/delete_Like', {
+                axios.post('http://192.168.1.102:3000/delete_Like', {
                   "id": data.productId._id
                 }, {
                   headers: {
@@ -182,6 +183,7 @@ const Real_Com = function ({ data, gogo_delte }) {
                 })
 
                   .then(function (response) {
+                    console.log(response.data.data)
 
                     dispatch(tokenAction.setlike(response.data.data))
 

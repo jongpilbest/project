@@ -26,7 +26,7 @@ const New_fifth = function ({ navigation }) {
   const data = navigation.getParam('data');
   useEffect(() => {
     console.log(data);
-    axios.get(`http://192.168.1.105:3000/like_total_lost/${data._id}`, {
+    axios.get(`http://192.168.1.102:3000/like_total_lost/${data._id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -50,7 +50,7 @@ const New_fifth = function ({ navigation }) {
 
     console.log('검은색?');
 
-    axios.post('http://192.168.1.105:3000/like', {
+    axios.post('http://192.168.1.102:3000/like', {
       id: data._id
     }, {
       headers: {
@@ -101,7 +101,7 @@ const New_fifth = function ({ navigation }) {
 
         setModalVisible(!modalVisible)
 
-        axios.post('http://192.168.1.105:3000/cart', {
+        axios.post('http://192.168.1.102:3000/cart', {
           "_id": data._id,
           "size": size,
           "price": data.price
@@ -125,7 +125,8 @@ const New_fifth = function ({ navigation }) {
                   productId: el,
                   size: {
                     size: ev.size,
-                    quantity: ev.quantity
+                    quantity: ev.quantity,
+                    opacity: ev.opacity
                   }
 
                 }
